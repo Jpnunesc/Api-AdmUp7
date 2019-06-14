@@ -3,6 +3,9 @@
     <button type="button" class="btn btn-primary" [routerLink]='["/carros"]'
       style="margin-left: 85%; width: 180px; height: 40px;">Cadastrar</button>
   </div>
+  <div *ngIf="sucesso" class="alert alert-success" role="alert">
+    Sucesso!
+  </div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-4" *ngFor="let contact of formSearchCarro">
@@ -24,7 +27,7 @@
             </div>
             <div class="footer">
               <a routerLink="../editarCarro/{{contact.id}}" class="Cbtn Cbtn-primary">Edite</a>
-              <a class="Cbtn Cbtn-danger" (click)=showConfirm()>Excluir</a>
+              <a class="Cbtn Cbtn-danger" (click)=showConfirm(contact.id)>Excluir</a>
             </div>
           </div>
         </div>

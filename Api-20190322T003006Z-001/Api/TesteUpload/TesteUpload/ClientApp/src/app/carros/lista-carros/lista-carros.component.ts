@@ -16,6 +16,7 @@ export class ListaCarrosComponent implements OnInit {
   formSearchCarro: CarroModel[] = new Array<CarroModel>();
   urlPrincipal = '';
   showModal = false;
+  sucesso = false;
 
   constructor(private serviceCarro: CarroService, private dialogService: DialogService) {
   }
@@ -24,25 +25,31 @@ export class ListaCarrosComponent implements OnInit {
     this.search();
   }
 
-  showConfirm() {
-    debugger;
-    let disposable = this.dialogService.addDialog(ConfirmComponent, {
-      title: 'Confirm title',
-      message: 'Confirm message'
+  showConfirm(id) {
+    this.dialogService.addDialog(ConfirmComponent, {
+      title: 'Alerta!',
+      message: 'Deseja realmente excluir?'
     })
       .subscribe((isConfirmed) => {
         if (isConfirmed) {
-          alert('accepted');
-        }
-        else {
-          alert('declined');
+          this.excluir(id);
+        } else {
         }
       });
-    setTimeout(() => {
-      disposable.unsubscribe();
-    }, 10000);
+  }
+  excluir(id) {
+    this.serviceCarro.delete(id).subscribe(resp => {
+      if (resp) {
+       // this.sucesso = true;
+        setTimeout(() => {
+        //  this.sucesso = false;
+        }, 10000);
+      }
+      this.search();
+    });
   }
   search() {
+    this.formSearchCarro = new Array<CarroModel>();
     this.loading = true;
     this.serviceCarro.search().subscribe(resp => {
       if (resp.object.length) {
@@ -50,10 +57,9 @@ export class ListaCarrosComponent implements OnInit {
         this.formSearchCarro.forEach(el => {
           el.caminhoImgPrincipal = this.url + el.caminhoImagem;
         });
-        for (let i = 0; i < 10; i++) {
-          this.formSearchCarro.push(this.formSearchCarro[1]);
-        }
-        console.log(this.formSearchCarro);
+        // for (let i = 0; i < 10; i++) {
+        //   this.formSearchCarro.push(this.formSearchCarro[1]);
+        // }
       }
       setTimeout(() => this.loading = false, 2000);
     }, error => console.log(error),

@@ -25,7 +25,7 @@ export class CarroService {
 
 
   delete(idCarro: number): Observable<any> {
-    return this.http.delete(this.pathUrlService + '/' + idCarro, this.requestOptions).map(res => res.json());
+    return this.http.delete(this.pathUrlService + 'carros/' + idCarro, this.requestOptions).map(res => res.json());
   }
 
   edit(idCarro: number): Observable<any> {

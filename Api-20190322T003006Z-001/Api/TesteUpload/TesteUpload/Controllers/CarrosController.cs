@@ -304,23 +304,24 @@ namespace TesteUpload.Controllers
     // DELETE: api/Carros/5
     [HttpDelete("{id}")]
     [EnableCors("MyPolicy")]
-    public async Task<IActionResult> DeleteCarroModel([FromRoute] int id)
+    public  ReturnModel DeleteCarroModel([FromRoute] int id)
     {
-      if (!ModelState.IsValid)
-      {
-        return BadRequest(ModelState);
-      }
+            ReturnModel result = new ReturnModel();
+            try
+            {
+                var carro = _context.carro.Where(e => e.Id == id).Include(x => x.Imagem).First();
+                //var carroModel = await _context.carro.FindAsync(id);
+                _context.carro.Remove(carro);
+                _context.SaveChanges();
+                result.Success = true;
 
-      var carroModel = await _context.carro.FindAsync(id);
-      if (carroModel == null)
-      {
-        return NotFound();
-      }
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+            }
 
-      _context.carro.Remove(carroModel);
-      await _context.SaveChangesAsync();
-
-      return Ok(carroModel);
+            return result;
     }
 
     private bool CarroModelExists(int id)
