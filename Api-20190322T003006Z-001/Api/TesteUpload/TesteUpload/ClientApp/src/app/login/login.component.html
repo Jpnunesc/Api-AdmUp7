@@ -1,0 +1,18 @@
+<div>
+    <div class="wrapper fadeInDown">
+        <p></p>
+        <p></p>
+        <div id="formContent">
+          <form>
+            <input type="text" id="login" class="fadeIn second" [(ngModel)]="usuario.usuario" name="login" placeholder="login">
+            <input type="password" id="password" class="fadeIn third" [(ngModel)]="usuario.senha" name="senha" placeholder="senha">
+            <input type="submit" class="fadeIn fourth" value="Entrar" (click)='fazerLogin()'>
+          </form>
+          <div id="formFooter">
+            <div *ngIf="msg">
+                <h3 style="color: red">Usuário ou senha incorreto!</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

@@ -1,0 +1,196 @@
+<div class="form-group">
+  <div class="form-group" style="display: flex;" *ngIf="!edit">
+    <button type="button" style="margin-right: auto; width: 450px; height: 37px;" class="btn btn-success"
+      (click)="atualizarRota()">Voltar</button>
+    <button type="button" class="btn btn-primary" (click)="salvar()"
+      style="margin-left: 85%;width: 450px; height: 37px;">Salvar</button>
+  </div>
+  <div class="form-group" style="display: flex;" *ngIf="edit">
+    <button  type="button" style="margin-right: auto; width: 450px; height: 37px;" class="btn btn-success"
+    (click)="atualizarRota()">Voltar</button>
+    <button type="button" class="btn btn-primary" (click)="salvar()"
+      style="margin-left: 85%;width: 450px; height: 37px;">Editar</button>
+  </div>
+  <table class="table table-striped">
+      <div *ngIf="sucesso"class="alert alert-success" role="alert">
+          Sucesso!
+        </div>
+        <!-- <div class="alert alert-danger" role="alert">
+          Error!
+        </div> -->
+    <tbody>
+      <tr>
+        <td colspan="1">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="defaultChecked1" name="2" value="option1"
+              [(ngModel)]="carro.carroAntigo">
+            <label class="custom-control-label" for="defaultChecked1" style="size:25px">Antigo</label>
+          </div>
+          <form class="well form-horizontal">
+            <fieldset>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Imagens Principal:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="addressLine1" name="imagens" (change)="arquivoPrincipal($event)" placeholder=""
+                      class="form-control" required="true" type="file"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Imagens:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="fullName" multiple name="imagens" (change)="arquivosSelecionados($event)" placeholder=""
+                      class="form-control" required="true" type="file">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Marca:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="addressLine2" name="marca" [(ngModel)]="carro.marca" placeholder="" class="form-control"
+                      required="true" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Modelo:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="city" name="modelo" [(ngModel)]="carro.modelo" placeholder="" class="form-control"
+                      required="true" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Ano:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="state" name="ano" [(ngModel)]="carro.ano" placeholder="" class="form-control"
+                      required="true" type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Cor:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="postcode" name="cor" [(ngModel)]="carro.cor" placeholder="" class="form-control"
+                      required="true" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Pais:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="postc" name="pais" [(ngModel)]="carro.paisOrigem" placeholder="" class="form-control"
+                      required="true" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Potência:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="email" name="potencia" [(ngModel)]="carro.potencia" placeholder="" class="form-control"
+                      type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Quilometragem:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="phoneNumber" name="quilometragem" [(ngModel)]="carro.quilometragem" placeholder=""
+                      class="form-control" type="text"></div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </td>
+        <td colspan="1">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="defaultChecked2" name="1" value="option2"
+              [(ngModel)]="carro.carroSeminovo">
+            <label class="custom-control-label" for="defaultChecked2" style="size:25px">Seminovo</label>
+          </div>
+          <form class="well form-horizontal">
+            <fieldset>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Ar Condicionado:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="fullName" name="ar" [(ngModel)]="carro.arCondicionado" placeholder=""
+                      class="form-control" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Vidros:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="addressLine1" name="vidros" [(ngModel)]="carro.vidros" placeholder=""
+                      class="form-control" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Freios:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="addressLine2" name="freios" [(ngModel)]="carro.freios" placeholder=""
+                      class="form-control" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Rodas:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="city" name="rodas" [(ngModel)]="carro.rodas" placeholder="" class="form-control"
+                      type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Rodas:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="state" name="tracao" [(ngModel)]="carro.tracao" placeholder="" class="form-control"
+                      type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Status do Carro:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="postcode" name="statusCarro" [(ngModel)]="carro.statusCarro" placeholder=""
+                      class="form-control" type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Preço:</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="postcode" name="preco" [(ngModel)]="carro.preco" placeholder="" class="form-control"
+                      type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Descrição</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="ema" name="descricao" [(ngModel)]="carro.descricao" placeholder="" class="form-control"
+                      type="text"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-4 control-label">Bancos</label>
+                <div class="col-md-8 inputGroupContainer">
+                  <div class="input-group">
+                    <input id="phoneNumber" name="bancos" [(ngModel)]="carro.bancos" placeholder="" class="form-control"
+                      type="text"></div>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
