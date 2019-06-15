@@ -16,6 +16,7 @@ import { CarroService } from '../../../services/carro-service';
 export class CadastraCarrosComponent implements OnInit {
 
   sucesso = false;
+  msg = false;
   edit = false;
   public retorno: string;
   public carro: CarroModel = new CarroModel();
@@ -45,42 +46,47 @@ export class CadastraCarrosComponent implements OnInit {
     }
   }
   salvar() {
-    this.loading = true;
-    const fd = new FormData();
-    console.log(this.arquivos);
-    if (this.arquivos !== null && this.arquivos !== undefined) {
-      for (let i = 0; i < this.arquivos.length; i++) {
-        fd.append(this.arquivos[i].name, this.arquivos[i]);
-      }
-    }
-    if (this.imagemPrincipal !== null && this.imagemPrincipal !== undefined) {
-      for (let i = 0; i < this.imagemPrincipal.length; i++) {
-        fd.append(this.principal + this.imagemPrincipal[i].name, this.imagemPrincipal[i]);
-      }
-    }
-    fd.append('carro', JSON.stringify(this.carro));
-    const uploadReq = new HttpRequest('POST', `${this.baseUrl}api/carros`, fd, {
-      reportProgress: true,
-    });
-    this.http.request(uploadReq).subscribe(event => {
-      
-      if (event.type === HttpEventType.UploadProgress) {
-        if (`${Math.round(100 * event.loaded / event.total)}` === '100') {
-          setTimeout(() => this.sucesso = false, 2000);
-          setTimeout(() => this.loading = false, 3000);
-          setTimeout(() => this.atualizarRota(), 1000);
-        }
-        console.log(`Progresso: ${Math.round(100 * event.loaded / event.total)}`);
-      } else if (event.type === HttpEventType.Response) {
-        if (`${event.body.toString()}` === 'sucess') {
-          this.sucesso = true;
-          setTimeout(() => this.sucesso = false, 2000);
-          setTimeout(() => this.loading = false, 3000);
-          setTimeout(() => this.atualizarRota(), 1000);
+    if (this.carro.modelo && this.arquivos) {
+      this.loading = true;
+      const fd = new FormData();
+      console.log(this.arquivos);
+      if (this.arquivos !== null && this.arquivos !== undefined) {
+        for (let i = 0; i < this.arquivos.length; i++) {
+          fd.append(this.arquivos[i].name, this.arquivos[i]);
         }
       }
-      this.carro = new CarroModel();
-    });
+      if (this.imagemPrincipal !== null && this.imagemPrincipal !== undefined) {
+        for (let i = 0; i < this.imagemPrincipal.length; i++) {
+          fd.append(this.principal + this.imagemPrincipal[i].name, this.imagemPrincipal[i]);
+        }
+      }
+      fd.append('carro', JSON.stringify(this.carro));
+      const uploadReq = new HttpRequest('POST', `${this.baseUrl}api/carros`, fd, {
+        reportProgress: true,
+      });
+      this.http.request(uploadReq).subscribe(event => {
+
+        if (event.type === HttpEventType.UploadProgress) {
+          if (`${Math.round(100 * event.loaded / event.total)}` === '100') {
+            setTimeout(() => this.sucesso = false, 2000);
+            setTimeout(() => this.loading = false, 3000);
+            setTimeout(() => this.atualizarRota(), 1000);
+          }
+          console.log(`Progresso: ${Math.round(100 * event.loaded / event.total)}`);
+        } else if (event.type === HttpEventType.Response) {
+          if (`${event.body.toString()}` === 'sucess') {
+            this.sucesso = true;
+            setTimeout(() => this.sucesso = false, 2000);
+            setTimeout(() => this.loading = false, 3000);
+            setTimeout(() => this.atualizarRota(), 1000);
+          }
+        }
+        this.carro = new CarroModel();
+      });
+    } else {
+      this.msg = true;
+      setTimeout(() => this.msg = false, 3000);
+    }
   }
   atualizarRota() {
     if (!this.edit) {

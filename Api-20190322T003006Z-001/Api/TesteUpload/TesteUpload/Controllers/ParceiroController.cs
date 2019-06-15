@@ -48,9 +48,25 @@ namespace TesteUpload.Controllers
         // GET: api/Parceiro/5
         [HttpGet("{id}")]
         [Route("{id}")]
-        public string Get(int id)
+        public ReturnModel GetAplicativo(int id)
         {
-            return "value";
+            ReturnModel result = new ReturnModel();
+            try
+            {
+                if (id != 0)
+                {
+                    result.Object = _context.parceiros.Where(x => x.Id == id).First();
+
+                }
+                result.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                throw ex;
+            }
+            return result;
         }
 
 
@@ -58,42 +74,63 @@ namespace TesteUpload.Controllers
         [HttpPost, DisableRequestSizeLimit]
         [EnableCors("MyPolicy")]
         [Route("cadastro")]
-        public async Task<IActionResult> UploadFile()
+        public ReturnModel UploadFile()
         {
             ReturnModel result = new ReturnModel();
+            ParceiroModel parceiro = new ParceiroModel();
             try
             {
-                var parceiro = JsonConvert.DeserializeObject<ParceiroModel>(Request.Form["parceiro"]);
+                 parceiro = JsonConvert.DeserializeObject<ParceiroModel>(Request.Form["parceiro"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
-
-                foreach (var arquivo in Request.Form.Files)
+                if (parceiro.Id != null)
                 {
-                    if (arquivo.Length > 0)
+                    foreach (var arquivo in Request.Form.Files)
                     {
-                        parceiro.Imagem = ($"conteudo/{arquivo.Name}");
-                        var imagem = $"{ filePath}{ arquivo.Name}";
-                        using (var stream = new FileStream(imagem, FileMode.Create))
+                        if (arquivo.Length > 0)
                         {
-                            await arquivo.CopyToAsync(stream);
+                            parceiro.Imagem = ($"conteudo/{arquivo.Name}");
+                            var imagem = $"{ filePath}{ arquivo.Name}";
+                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            {
+                                arquivo.CopyToAsync(stream);
+                            }
                         }
                     }
+                    _context.parceiros.Update(parceiro);
+                } else
+                {
+                    foreach (var arquivo in Request.Form.Files)
+                    {
+                        if (arquivo.Length > 0)
+                        {
+                            parceiro.Imagem = ($"conteudo/{arquivo.Name}");
+                            var imagem = $"{ filePath}{ arquivo.Name}";
+                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            {
+                                arquivo.CopyToAsync(stream);
+                            }
+                        }
+                    }
+                    _context.parceiros.Add(parceiro);
                 }
-                _context.parceiros.Add(parceiro);
+ 
                 _context.SaveChanges();
                 result.Message = "Dados salvos com sucesso!";
+                result.Success = true;
 
             }
             catch (Exception ex)
             {
                 var e = ex;
+                result.Success = false;
                 result.Message = "Erro, verifique se os dados estão corretos!";
-                return Ok(result);
+                return result;
 
             }
 
-            return Ok(result);
+            return result;
         }
 
         // POST: api/Parceiro
@@ -111,10 +148,26 @@ namespace TesteUpload.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete]
-        [Route("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{id}")]
+        [EnableCors("MyPolicy")]
+        public ReturnModel DeleteCarroModel([FromRoute] int id)
         {
+            ReturnModel result = new ReturnModel();
+            try
+            {
+                var parceiro = _context.parceiros.Where(e => e.Id == id).First();
+                //var carroModel = await _context.carro.FindAsync(id);
+                _context.parceiros.Remove(parceiro);
+                _context.SaveChanges();
+                result.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+            }
+
+            return result;
         }
     }
 }

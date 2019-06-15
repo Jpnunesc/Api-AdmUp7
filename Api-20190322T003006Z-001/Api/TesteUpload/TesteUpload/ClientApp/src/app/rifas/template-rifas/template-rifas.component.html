@@ -1,0 +1,30 @@
+<div class="card text-center">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light bg-light">
+    <!-- <div class="card-header"> -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item"  [routerLinkActive]='["link-active"]'>
+          <a class="nav-link" id="1" (click)="navegar($event)">Rifas</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]='["link-active"]'>
+          <a class="nav-link" id="2" (click)="navegar($event)">Pendente Aprovação</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]='["link-active"]'>
+          <a class="nav-link" id="3" (click)="navegar($event)">Aprovados</a>
+        </li>
+      </ul>
+      <!-- </div> -->
+    </div>
+  </nav>
+  <div class="card-body">
+    <div *ngIf="aprovado">
+      <app-aprovados-rifas></app-aprovados-rifas>
+    </div>
+    <div *ngIf="rifas">
+      <app-lista-instituicao></app-lista-instituicao>
+    </div>
+    <div *ngIf="pendente">
+      <app-pendentes-rifas></app-pendentes-rifas>
+    </div>
+  </div>
+</div>

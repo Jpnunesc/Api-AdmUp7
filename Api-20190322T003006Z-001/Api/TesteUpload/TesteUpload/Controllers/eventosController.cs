@@ -51,7 +51,7 @@ namespace TesteUpload.Controllers
         [HttpGet]
         [EnableCors("MyPolicy")]
         [Route("{id}")]
-        public ReturnModel Get(int id)
+        public ReturnModel GetAplicativo(int id)
         {
             ReturnModel result = new ReturnModel();
             try
@@ -66,6 +66,29 @@ namespace TesteUpload.Controllers
 
                 }
                 result.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                throw ex;
+            }
+            return result;
+        }
+        // GET: api/eventos/5
+        [HttpGet]
+        [EnableCors("MyPolicy")]
+        [Route("eventos/{id}")]
+        public ReturnModel Get(int id)
+        {
+            ReturnModel result = new ReturnModel();
+            try
+            {
+                if (id != 0)
+                {
+                    result.Object = _context.eventos.Where(x => x.Id == id).First();
+
+                }
 
             }
             catch (Exception ex)
@@ -103,26 +126,46 @@ namespace TesteUpload.Controllers
         public async Task<IActionResult> UploadFile()
         {
             ReturnModel result = new ReturnModel();
+            EventoModel evento = new EventoModel();
             try
             {
-                var evento = JsonConvert.DeserializeObject<EventoModel>(Request.Form["evento"]);
+                 evento = JsonConvert.DeserializeObject<EventoModel>(Request.Form["evento"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
-
-                foreach (var arquivo in Request.Form.Files)
+                if(evento.Id != null)
                 {
-                    if (arquivo.Length > 0)
+                    foreach (var arquivo in Request.Form.Files)
                     {
-                        evento.Imagem = ($"conteudo/{arquivo.Name}");
-                        var imagem = $"{ filePath}{ arquivo.Name}";
-                        using (var stream = new FileStream(imagem, FileMode.Create))
+                        if (arquivo.Length > 0)
                         {
-                            await arquivo.CopyToAsync(stream);
+                            evento.Imagem = ($"conteudo/{arquivo.Name}");
+                            var imagem = $"{ filePath}{ arquivo.Name}";
+                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            {
+                                await arquivo.CopyToAsync(stream);
+                            }
                         }
                     }
+                    _context.eventos.Update(evento);
+                } else
+                {
+                    foreach (var arquivo in Request.Form.Files)
+                    {
+                        if (arquivo.Length > 0)
+                        {
+                            evento.Imagem = ($"conteudo/{arquivo.Name}");
+                            var imagem = $"{ filePath}{ arquivo.Name}";
+                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            {
+                                await arquivo.CopyToAsync(stream);
+                            }
+                        }
+                    }
+                    _context.eventos.Add(evento);
                 }
-                _context.eventos.Add(evento);
+
+
                 _context.SaveChanges();
                 result.Message = "Dados salvos com sucesso!";
 
@@ -143,10 +186,27 @@ namespace TesteUpload.Controllers
         {
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [EnableCors("MyPolicy")]
+        public ReturnModel DeleteCarroModel([FromRoute] int id)
         {
+            ReturnModel result = new ReturnModel();
+            try
+            {
+                var evento = _context.eventos.Where(e => e.Id == id).First();
+                //var carroModel = await _context.carro.FindAsync(id);
+                _context.eventos.Remove(evento);
+                _context.SaveChanges();
+                result.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+            }
+
+            return result;
         }
+
     }
 }

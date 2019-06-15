@@ -21,4 +21,7 @@ export class RifasService {
   search(): Observable<any> {
     return this.http.get(this.pathUrlService + 'carros').map(res => res.json() );
   }
+  delete(idEvento: number): Observable<any> {
+    return this.http.delete(this.pathUrlService + 'eventos/' + idEvento, this.requestOptions).map(res => res.json());
+  }
 }

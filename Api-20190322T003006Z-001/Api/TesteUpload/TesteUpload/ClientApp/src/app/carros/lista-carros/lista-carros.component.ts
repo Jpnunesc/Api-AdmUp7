@@ -66,6 +66,7 @@ export class ListaCarrosComponent implements OnInit {
       () => console.log('error.'));
     setTimeout(() => this.loading = false, 2000);
   }
+  
 }
 
 

@@ -101,7 +101,6 @@ C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUplo
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Debug\netcoreapp2.1\TesteUpload.pdb
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Debug\netcoreapp2.1\TesteUpload.Views.dll
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Debug\netcoreapp2.1\TesteUpload.Views.pdb
-C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.csprojAssemblyReference.cache
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.csproj.CoreCompileInputs.cache
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.RazorAssemblyInfo.cache
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.RazorAssemblyInfo.cs
@@ -118,3 +117,4 @@ C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUplo
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.dll
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.pdb
 C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.csproj.CopyComplete
+C:\ProjetosEstudos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Debug\netcoreapp2.1\TesteUpload.csprojAssemblyReference.cache

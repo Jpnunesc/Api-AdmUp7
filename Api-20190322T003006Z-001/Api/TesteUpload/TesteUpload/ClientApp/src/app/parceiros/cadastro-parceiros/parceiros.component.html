@@ -1,0 +1,56 @@
+  <div class="form-group">
+      <div class="form-group" style="display: flex;" *ngIf="!edit">
+        <button type="button" style="margin-right: auto; width: 450px; height: 37px;" class="btn btn-success"
+          (click)="atualizarRota()">Voltar</button>
+        <button type="button" class="btn btn-primary" (click)="salvar()"
+          style="margin-left: 85%;width: 450px; height: 37px;">Salvar</button>
+      </div>
+      <div class="form-group" style="display: flex;" *ngIf="edit">
+        <button type="button" style="margin-right: auto; width: 450px; height: 37px;" class="btn btn-success"
+          (click)="atualizarRota()">Voltar</button>
+        <button type="button" class="btn btn-primary" (click)="salvar()"
+          style="margin-left: 85%;width: 450px; height: 37px;">Editar</button>
+      </div>
+      <table class="table table-striped">
+        <div *ngIf="sucesso" class="alert alert-success" role="alert">
+          Sucesso!
+        </div>
+        <div *ngIf="msg" class="alert alert-danger" role="alert">
+            Nome e Imagens obrigatorios!
+          </div>
+        <tbody>
+          <tr>
+            <td colspan="1">
+              <form class="well form-horizontal">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-md-4 control-label">Imagem:</label>
+                    <div class="col-md-8 inputGroupContainer">
+                      <div class="input-group">
+                        <input id="addressLine1" name="imagem" (change)="arquivosSelecionados($event)" placeholder=""
+                          class="form-control" required="true" type="file"></div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-4 control-label">Nome:</label>
+                    <div class="col-md-8 inputGroupContainer">
+                      <div class="input-group">
+                        <input id="addressLine2" name="nome" [(ngModel)]="parceiro.nome" placeholder="" class="form-control"
+                          required="true" type="text"></div>
+                    </div>
+                  </div> 
+                  <div class="form-group">
+                    <label class="col-md-4 control-label">Descrição:</label>
+                    <div class="col-md-8 inputGroupContainer">
+                      <div class="input-group">
+                        <input id="addressLine2" name="descricao" [(ngModel)]="parceiro.descricao" placeholder="Descrição" placeholder="" class="form-control"
+                          required="true" type="text"></div>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>

@@ -4,7 +4,7 @@ export class RifasModel {
     descricao: string;
     imagem: string;
     preco: string;
-    numero: number;
+    quantidade: number;
     status: string;
 
     constructor(values: Object = {}) {

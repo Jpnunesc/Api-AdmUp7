@@ -62,26 +62,44 @@ namespace TesteUpload.Controllers
         public async Task<IActionResult> UploadFile()
         {
             ReturnModel result = new ReturnModel();
+            InstituicaoModel instituicao = new InstituicaoModel();
             try
             {
-                var instituicao = JsonConvert.DeserializeObject<InstituicaoModel>(Request.Form["instituicao"]);
+                 instituicao = JsonConvert.DeserializeObject<InstituicaoModel>(Request.Form["instituicao"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
-
-                foreach (var arquivo in Request.Form.Files)
+                if(instituicao.Id != null) 
                 {
-                    if (arquivo.Length > 0)
+                    foreach (var arquivo in Request.Form.Files)
                     {
-                        instituicao.Imagem = ($"conteudo/{arquivo.Name}");
-                        var imagem = $"{ filePath}{ arquivo.Name}";
-                        using (var stream = new FileStream(imagem, System.IO.FileMode.Create))
+                        if (arquivo.Length > 0)
                         {
-                            await arquivo.CopyToAsync(stream);
+                            instituicao.Imagem = ($"conteudo/{arquivo.Name}");
+                            var imagem = $"{ filePath}{ arquivo.Name}";
+                            using (var stream = new FileStream(imagem, System.IO.FileMode.Create))
+                            {
+                                await arquivo.CopyToAsync(stream);
+                            }
                         }
                     }
-                }
-                _context.instituicao.Add(instituicao);
+                    _context.instituicao.Update(instituicao);
+                } else
+                {
+                    foreach (var arquivo in Request.Form.Files)
+                    {
+                        if (arquivo.Length > 0)
+                        {
+                            instituicao.Imagem = ($"conteudo/{arquivo.Name}");
+                            var imagem = $"{ filePath}{ arquivo.Name}";
+                            using (var stream = new FileStream(imagem, System.IO.FileMode.Create))
+                            {
+                                await arquivo.CopyToAsync(stream);
+                            }
+                        }
+                    }
+                    _context.instituicao.Add(instituicao);
+                }            
                 _context.SaveChanges();
                 result.Message = "Dados salvos com sucesso!";
 
@@ -111,10 +129,26 @@ namespace TesteUpload.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete]
-        [Route("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{id}")]
+        [EnableCors("MyPolicy")]
+        public ReturnModel DeleteCarroModel([FromRoute] int id)
         {
+            ReturnModel result = new ReturnModel();
+            try
+            {
+                var instituicao = _context.instituicao.Where(e => e.Id == id).First();
+                //var carroModel = await _context.carro.FindAsync(id);
+                _context.instituicao.Remove(instituicao);
+                _context.SaveChanges();
+                result.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+            }
+
+            return result;
         }
     }
 }
