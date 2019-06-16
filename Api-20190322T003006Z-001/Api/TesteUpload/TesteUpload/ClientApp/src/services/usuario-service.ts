@@ -23,16 +23,22 @@ export class UsuarioService {
     return this.http.get(this.pathUrlService + 'usuario/aprovado').map(res => res.json() );
   }
   pedentes(): Observable<any> {
-    debugger;
     return this.http.get(this.pathUrlService + 'Usuario/pendente').map(res => res.json() );
   }
   delete(id: number): Observable<any> {
     return this.http.delete(this.pathUrlService + 'usuario/' + id, this.requestOptions).map(res => res.json());
-  }
+  } 
+  atualizar(): Observable<any> {
+    return this.http.get(this.pathUrlService + 'usuario/atualizar', this.requestOptions).map(res => res.json());
+  } 
   ganhou(id: number): Observable<any> {
     return this.http.get(this.pathUrlService + 'usuario/ganhou' + id, this.requestOptions).map(res => res.json());
   }
   aprovar(id: number): Observable<any> {
-    return this.http.get(this.pathUrlService + 'usuario/aprovar' + id, this.requestOptions).map(res => res.json());
+    return this.http.get(this.pathUrlService + 'Usuario/aprovar/' + id, this.requestOptions).map(res => res.json());
+  }
+  buscarUsuarioPorRifa(id: number): Observable<any> {
+    debugger;
+    return this.http.get(this.pathUrlService + 'Usuario/rifas/' + id, this.requestOptions).map(res => res.json());
   }
 }

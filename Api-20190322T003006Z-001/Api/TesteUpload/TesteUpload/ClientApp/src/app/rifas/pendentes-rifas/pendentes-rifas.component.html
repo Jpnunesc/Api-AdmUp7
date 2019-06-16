@@ -1,4 +1,13 @@
-<table class="table table-striped">
+<button (click)="atualizar()" type="submit" class="btn btn-warning" style="margin-left: auto; display: flex;">Atualizar Listar</button>
+<div style="display: flex">
+  <label style="margin-right: 0.5%; margin: 5px;" for="inputState">Código:</label>
+  <select placeholder="Selecione o codígo da rifa..." [(ngModel)]="idRifa" id="inputState" class="form-control"
+    style="margin-right: 2%; height: fit-content;">
+    <option *ngFor="let item of arrRifas" [value]="item.id">{{item.codigo}}</option>
+  </select>
+  <button (click)="buscar()" type="submit" class="btn btn-primary mb-2" style="margin-right: 50%;">Buscar</button>
+</div>
+<table class="table table-striped" *ngIf="formSearch.length">
   <thead>
     <tr>
       <th scope="col">Código</th>
@@ -11,11 +20,11 @@
     <tr *ngFor="let user of formSearch">
       <td>{{user.rifa.codigo}}</td>
       <td>{{user.nome}}</td>
-      <td>{{user.telefone}}</td>
+      <td>{{user.telefone | number}}</td>
       <td>
-          <button type="button" class="btn btn-primary">Aprovar</button>
-          <button type="button" class="btn btn-danger">Excluir</button>
-        </td>
+        <button type="button" class="btn btn-primary" (click)="showConfirmAprovar(user.id)">Aprovar</button>
+        <button type="button" class="btn btn-danger"(click)="showConfirmExcluir(user.id)">Excluir</button>
+      </td>
     </tr>
   </tbody>
 </table>

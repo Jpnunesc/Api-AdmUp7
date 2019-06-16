@@ -24,6 +24,7 @@ namespace TesteUpload.Model
         public string Codigo { get; set; }
         [Required]
         public int Quantidade { get; set; }
+        public int QuantidadePendente { get; set; }
         public int QuantidadaRestante { get; set; }
         public string Status { get; set; }
 

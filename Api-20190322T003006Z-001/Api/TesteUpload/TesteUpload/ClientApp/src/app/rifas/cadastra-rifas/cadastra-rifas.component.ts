@@ -40,11 +40,12 @@ export class CadastraRifasComponent implements OnInit {
   }
   atualizarRota() {
     if (!this.edit) {
-      this.router.navigate(['../listaInstituicao']);
+      this.router.navigate(['../rifas']);
     } else {
-      this.router.navigate(['../../listaInstituicao']);
+      this.router.navigate(['../../rifas']);
     }
-  }
+  } 
+
   editar(id) {
     this.serviceRifas.edit(id).subscribe(resp => {
       console.log(resp);

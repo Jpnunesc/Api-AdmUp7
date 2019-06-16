@@ -32,7 +32,7 @@ namespace TesteUpload.Controllers
             ReturnModel result = new ReturnModel();
             try
             {
-                result.Object = _context.rifas.Where(x => x.QuantidadaRestante > 1).AsQueryable();
+                result.Object = _context.rifas.Where(x => x.QuantidadaRestante > 1).ToList();
                 result.Success = true;
 
             }
@@ -80,7 +80,7 @@ namespace TesteUpload.Controllers
                 rifa = JsonConvert.DeserializeObject<RifaModel>(Request.Form["rifa"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
-                if (rifa.Id != null)
+                if (rifa.Id != 0)
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
@@ -97,6 +97,8 @@ namespace TesteUpload.Controllers
                     _context.rifas.Update(rifa);
                 } else
                 {
+                    rifa.QuantidadaRestante = rifa.Quantidade;
+                    rifa.QuantidadePendente = rifa.Quantidade;
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
@@ -142,6 +144,11 @@ namespace TesteUpload.Controllers
             try
             {
                 var rifa = _context.rifas.Where(e => e.Id == id).First();
+                var usuarios = _context.usuarios.Where(x => x.IdRifa == rifa.Id).ToList();
+                if(usuarios != null)
+                {
+                    _context.usuarios.RemoveRange(usuarios);
+                }
                 _context.rifas.Remove(rifa);
                 _context.SaveChanges();
                 result.Success = true;

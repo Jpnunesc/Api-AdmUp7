@@ -133,7 +133,7 @@ namespace TesteUpload.Controllers
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
-                if(evento.Id != null)
+                if(evento.Id != 0)
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {

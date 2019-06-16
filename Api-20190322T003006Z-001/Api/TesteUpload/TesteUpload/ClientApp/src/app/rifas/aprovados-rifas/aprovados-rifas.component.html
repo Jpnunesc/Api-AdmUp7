@@ -1,4 +1,11 @@
-<table class="table table-striped">
+<div style="display: flex">
+    <label style="margin-right: 0.5%; margin: 5px;" for="inputState">Código:</label>
+    <select placeholder="Selecione o codígo da rifa..." [(ngModel)]="idRifa" id="inputState" class="form-control" style="margin-right: 2%; height: fit-content;">
+          <option *ngFor="let item of arrRifas" [value]="item.id">{{item.codigo}}</option>
+        </select>
+    <button (click)="buscar()" type="submit" class="btn btn-primary mb-2" style="margin-right: 50%;">Buscar</button>
+</div>
+<table class="table table-striped" *ngIf="formSearch.length">
     <thead>
       <tr>
         <th scope="col">Código</th>
@@ -8,32 +15,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
+      <tr *ngFor="let user of formSearch">
+        <td>{{user.rifa.codigo}}</td>
+        <td>{{user.nome}}</td>
+        <td>{{user.telefone}}</td>
         <td>
-            <button type="button" class="btn btn-success">Ganhou</button>
+            <button type="button" class="btn btn-success" (click)="showConfirmGanhou(user.id)">Ganhou</button>
             <button type="button" class="btn btn-danger">Excluir</button>
           </td>
-      </tr>
-      <tr>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-        <td>
-            <button type="button" class="btn btn-success">Ganhou</button>
-            <button type="button" class="btn btn-danger">Excluir</button>
-          </td>
-      </tr>
-      <tr>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-        <td>
-          <button type="button" class="btn btn-success">Ganhou</button>
-          <button type="button" class="btn btn-danger">Excluir</button>
-        </td>
       </tr>
     </tbody>
   </table>
