@@ -24,7 +24,7 @@ export class InstituicaoComponent implements OnInit {
     this.baseUrl = baseUrl;
     this.http = http;
   }
-
+ 
   ngOnInit() {
     if (this.route.params) {
       this.route.params.subscribe(params => {

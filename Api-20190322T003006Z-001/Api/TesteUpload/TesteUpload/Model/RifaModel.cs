@@ -21,7 +21,10 @@ namespace TesteUpload.Model
         [Required]
         public string Preco { get; set; }
         [Required]
-        public int Numero { get; set; }
+        public string Codigo { get; set; }
+        [Required]
+        public int Quantidade { get; set; }
+        public int QuantidadaRestante { get; set; }
         public string Status { get; set; }
 
         public virtual ICollection<UsuarioModel> Usuario { get; set; }

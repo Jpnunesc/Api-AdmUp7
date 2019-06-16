@@ -8,32 +8,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+    <tr *ngFor="let user of formSearch">
+      <td>{{user.rifa.codigo}}</td>
+      <td>{{user.nome}}</td>
+      <td>{{user.telefone}}</td>
       <td>
           <button type="button" class="btn btn-primary">Aprovar</button>
           <button type="button" class="btn btn-danger">Excluir</button>
         </td>
-    </tr>
-    <tr>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>
-          <button type="button" class="btn btn-primary">Aprovar</button>
-          <button type="button" class="btn btn-danger">Excluir</button>
-        </td>
-    </tr>
-    <tr>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>
-        <button type="button" class="btn btn-primary">Aprovar</button>
-        <button type="button" class="btn btn-danger">Excluir</button>
-      </td>
     </tr>
   </tbody>
 </table>

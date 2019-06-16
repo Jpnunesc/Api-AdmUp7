@@ -4,6 +4,7 @@ export class RifasModel {
     descricao: string;
     imagem: string;
     preco: string;
+    codigo: string;
     quantidade: number;
     status: string;
 

@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { RifasModel } from '../../../models/rifas-model';
 import { HttpClient, HttpRequest, HttpEventType } from '@angular/common/http';
+import { RifasService } from '../../../services/rifas-service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cadastra-rifas',
@@ -13,17 +15,44 @@ export class CadastraRifasComponent implements OnInit {
   private baseUrl: string;
   private http: HttpClient;
   sucesso = false;
-
+  edit = false;
+  msg = false;
   private arquivos: FileList;
   private imagemPrincipal: FileList;
   principal = 'ImagemPrincipal';
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string,
+  private route: ActivatedRoute, private router: Router, private serviceRifas: RifasService) {
     this.baseUrl = baseUrl;
     this.http = http;
   }
 
-  ngOnInit(): void {
-
+  ngOnInit() {
+    if (this.route.params) {
+      this.route.params.subscribe(params => {
+        if (params['id']) {
+          this.edit = true;
+          this.editar(params['id']);
+        }
+      });
+    } else {
+      this.edit = false;
+    }
+  }
+  atualizarRota() {
+    if (!this.edit) {
+      this.router.navigate(['../listaInstituicao']);
+    } else {
+      this.router.navigate(['../../listaInstituicao']);
+    }
+  }
+  editar(id) {
+    this.serviceRifas.edit(id).subscribe(resp => {
+      console.log(resp);
+      if (resp.object) {
+        this.rifa = resp.object;
+      }
+     //setTimeout(() => this.loading = false, 2000);
+   });
   }
   salvar() {
     const fd = new FormData();

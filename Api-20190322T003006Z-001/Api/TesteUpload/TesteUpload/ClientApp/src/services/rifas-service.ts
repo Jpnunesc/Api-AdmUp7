@@ -19,9 +19,13 @@ export class RifasService {
   }
 
   search(): Observable<any> {
-    return this.http.get(this.pathUrlService + 'carros').map(res => res.json() );
+    return this.http.get(this.pathUrlService + 'rifas').map(res => res.json() );
   }
-  delete(idEvento: number): Observable<any> {
-    return this.http.delete(this.pathUrlService + 'eventos/' + idEvento, this.requestOptions).map(res => res.json());
+  delete(id: number): Observable<any> {
+    return this.http.delete(this.pathUrlService + 'rifas/' + id, this.requestOptions).map(res => res.json());
+  }
+
+  edit(id: number): Observable<any> {
+    return this.http.get(this.pathUrlService + 'rifas/' + id, this.requestOptions).map(res => res.json());
   }
 }

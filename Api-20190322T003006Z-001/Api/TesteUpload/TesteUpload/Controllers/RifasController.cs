@@ -32,7 +32,7 @@ namespace TesteUpload.Controllers
             ReturnModel result = new ReturnModel();
             try
             {
-                result.Object = _context.rifas.Where(x => x.Numero > 1).AsQueryable();
+                result.Object = _context.rifas.Where(x => x.QuantidadaRestante > 1).AsQueryable();
                 result.Success = true;
 
             }
@@ -74,26 +74,43 @@ namespace TesteUpload.Controllers
         public async Task<IActionResult> UploadFile()
         {
             ReturnModel result = new ReturnModel();
+            RifaModel rifa = new RifaModel();
             try
             {
-                var rifa = JsonConvert.DeserializeObject<RifaModel>(Request.Form["rifa"]);
+                rifa = JsonConvert.DeserializeObject<RifaModel>(Request.Form["rifa"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
-
-
-                foreach (var arquivo in Request.Form.Files)
+                if (rifa.Id != null)
                 {
-                    if (arquivo.Length > 0)
+                    foreach (var arquivo in Request.Form.Files)
                     {
-                       rifa.Imagem = ($"conteudo/{arquivo.FileName}");
-                        var imagem = $"{ filePath}{ arquivo.FileName}";
-                        using (var stream = new FileStream(imagem, FileMode.Create))
+                        if (arquivo.Length > 0)
                         {
-                            await arquivo.CopyToAsync(stream);
+                            rifa.Imagem = ($"conteudo/{arquivo.FileName}");
+                            var imagem = $"{ filePath}{ arquivo.FileName}";
+                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            {
+                                await arquivo.CopyToAsync(stream);
+                            }
                         }
                     }
+                    _context.rifas.Update(rifa);
+                } else
+                {
+                    foreach (var arquivo in Request.Form.Files)
+                    {
+                        if (arquivo.Length > 0)
+                        {
+                            rifa.Imagem = ($"conteudo/{arquivo.FileName}");
+                            var imagem = $"{ filePath}{ arquivo.FileName}";
+                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            {
+                                await arquivo.CopyToAsync(stream);
+                            }
+                        }
+                    }
+                    _context.rifas.Add(rifa);
                 }
-                _context.rifas.Add(rifa);
                 _context.SaveChanges();
                 result.Message = "Dados salvos com sucesso!";
 
@@ -113,12 +130,29 @@ namespace TesteUpload.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        [EnableCors("MyPolicy")]
+        public ReturnModel DeleteCarroModel([FromRoute] int id)
         {
+            ReturnModel result = new ReturnModel();
+            try
+            {
+                var rifa = _context.rifas.Where(e => e.Id == id).First();
+                _context.rifas.Remove(rifa);
+                _context.SaveChanges();
+                result.Success = true;
+
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+            }
+
+            return result;
         }
     }
 }

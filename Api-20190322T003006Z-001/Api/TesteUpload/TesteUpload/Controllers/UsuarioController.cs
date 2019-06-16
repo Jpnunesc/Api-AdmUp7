@@ -13,7 +13,7 @@ using TesteUpload.Model;
 
 namespace TesteUpload.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
@@ -23,11 +23,29 @@ namespace TesteUpload.Controllers
         {
             _context = context;
         }
-        // GET: api/Usuario
+        // GET: api/Usuario/pendente
         [HttpGet]
-        public IEnumerable<string> Get()
+        [EnableCors("MyPolicy")]
+        [Route("pendente")]
+        public async Task<ReturnModel> GetPendente()
         {
-            return new string[] { "value1", "value2" };
+            ReturnModel result = new ReturnModel();
+            var usuario = _context.usuarios.Where(x => x.Ativo == false).AsQueryable();
+
+            result.Object = await usuario.Include(x => x.Rifa).Select(p => new
+            {
+                p.Id,
+                p.Nome,
+                p.Telefone,
+                p.Rifa
+
+            }).ToListAsync();
+
+
+            result.Success = true;
+            result.Message = "sucesso!!";
+            return result;
+
         }
 
         // GET: api/Usuario/5

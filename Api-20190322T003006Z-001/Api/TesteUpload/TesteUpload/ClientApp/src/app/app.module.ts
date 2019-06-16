@@ -33,6 +33,8 @@ import { RifasService } from '../services/rifas-service';
 import { ListaRifaComponent } from './rifas/lista-rifa/lista-rifa.component';
 import { AprovadosRifasComponent } from './rifas/aprovados-rifas/aprovados-rifas.component';
 import { PendentesRifasComponent } from './rifas/pendentes-rifas/pendentes-rifas.component';
+import { UsuarioService } from '../services/usuario-service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -59,7 +61,7 @@ import { PendentesRifasComponent } from './rifas/pendentes-rifas/pendentes-rifas
     CadastraRifasComponent, 
     ListaRifaComponent,
      AprovadosRifasComponent, 
-     PendentesRifasComponent
+     PendentesRifasComponent, DashboardComponent
 
 
   ],
@@ -97,7 +99,7 @@ import { PendentesRifasComponent } from './rifas/pendentes-rifas/pendentes-rifas
   entryComponents: [
     ConfirmComponent
   ],
-  providers: [CarroService, AuthService, AuthGuard, EventosService,
+  providers: [CarroService, AuthService, AuthGuard, EventosService, UsuarioService,
      ParceiroService, InstituicaoService, RifasService],
   bootstrap: [AppComponent]
 })
