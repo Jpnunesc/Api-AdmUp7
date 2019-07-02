@@ -14,6 +14,7 @@ import { RifasService } from '../../../services/rifas-service';
 })
 export class AprovadosRifasComponent implements OnInit {
   public loading = false;
+  url = environment.urlImagem;
   formSearch: UsuarioModel[] = new Array<UsuarioModel>();
   urlPrincipal = '';
   showModal = false;
@@ -88,7 +89,6 @@ export class AprovadosRifasComponent implements OnInit {
       setTimeout(() => this.loading = false, 2000);
     }
   buscar() {
-    debugger;
     this.formSearch = new Array<UsuarioModel>();
     if (this.idRifa && this.idRifa !== 'Selecione o codígo da rifa...') {
       this.serviceUsuario.buscarUsuarioPorRifa(Number(this.idRifa)).subscribe(resp => {

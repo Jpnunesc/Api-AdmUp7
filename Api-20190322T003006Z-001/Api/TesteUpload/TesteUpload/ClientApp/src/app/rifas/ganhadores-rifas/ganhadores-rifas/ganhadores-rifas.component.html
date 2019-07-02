@@ -1,4 +1,4 @@
-<div style="display: flex">
+<!-- <div style="display: flex">
   <label style="margin-right: 0.5%; margin: 5px;" for="inputState">Código:</label>
   <select placeholder="Selecione o codígo da rifa..." [(ngModel)]="idRifa" id="inputState" class="form-control"
     style="margin-right: 2%; height: fit-content;">
@@ -28,4 +28,34 @@
       </td>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+<div>
+  <div *ngIf="sucesso" class="alert alert-success" role="alert">
+    Sucesso!
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-4" *ngFor="let contact of formSearch">
+        <div class="tile">
+          <div class="wrapper">
+            <div class="banner-img">
+              <img class="img-responsive" style="height: 350px;" src={{contact.rifa.imagem}} alt="Image 1">
+            </div>
+            <div class="stats">
+              <div>
+                <strong>Identificador</strong> {{contact.rifa.codigo}}
+              </div>
+              <div>
+                <strong>Nome</strong> {{contact.nome}}
+              </div>
+              <div>
+                <strong>Código</strong> {{contact.codigoRifa}}
+              </div>
+            </div>
+            <div class="footer">
+              <a class="Cbtn Cbtn-danger" (click)="showConfirmExcluir(user.id)">Excluir</a>
+            </div>
+          </div>
+        </div>
+      </div>

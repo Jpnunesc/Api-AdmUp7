@@ -5,6 +5,7 @@ import { RifasModel } from '../../../../models/rifas-model';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { RifasService } from '../../../../services/rifas-service';
 import { UsuarioService } from '../../../../services/usuario-service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-ganhadores-rifas',
@@ -16,6 +17,7 @@ export class GanhadoresRifasComponent implements OnInit {
   public loading = false;
   formSearch: UsuarioModel[] = new Array<UsuarioModel>();
   urlPrincipal = '';
+  url = environment.urlImagem;
   showModal = false;
   sucesso = false;
   idRifa: any;
@@ -97,10 +99,12 @@ buscar() {
     this.formSearch = new Array<UsuarioModel>();
     this.loading = true;
     this.serviceUsuario.pedentes().subscribe(resp => {
-      debugger;
-      console.log(resp);
       if (resp.object.length) {
         this.formSearch = resp.object;
+        this.formSearch.forEach(el => {
+          el.rifa.imagem = this.url + el.rifa.imagem;
+        });
+        console.log('img', this.formSearch);
       }
       setTimeout(() => this.loading = false, 2000);
     }, error => console.log(error),
