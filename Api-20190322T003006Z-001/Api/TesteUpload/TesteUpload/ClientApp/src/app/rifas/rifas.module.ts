@@ -5,11 +5,12 @@ import { TemplateRifasComponent } from './template-rifas/template-rifas.componen
 import { ListaRifaComponent } from './lista-rifa/lista-rifa.component';
 import { AprovadosRifasComponent } from './aprovados-rifas/aprovados-rifas.component';
 import { PendentesRifasComponent } from './pendentes-rifas/pendentes-rifas.component';
+import { GanhadoresRifasComponent } from './ganhadores-rifas/ganhadores-rifas/ganhadores-rifas.component';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [CadastraRifasComponent, TemplateRifasComponent, ListaRifaComponent, AprovadosRifasComponent, PendentesRifasComponent]
+  declarations: [CadastraRifasComponent, TemplateRifasComponent, ListaRifaComponent, AprovadosRifasComponent, PendentesRifasComponent, GanhadoresRifasComponent]
 })
 export class RifasModule { }

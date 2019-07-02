@@ -19,6 +19,7 @@ public class UP7WebApiContext : DbContext
     public DbSet<ParceiroModel> parceiros { get; set; }
     public DbSet<RifaModel> rifas { get; set; }
     public DbSet<UsuarioModel> usuarios { get; set; }
+    public DbSet<CodigoModel> codigos { get; set; }
 }
 
 

@@ -20,7 +20,7 @@
     <tr *ngFor="let user of formSearch">
       <td>{{user.rifa.codigo}}</td>
       <td>{{user.nome}}</td>
-      <td>{{user.telefone | number}}</td>
+      <td>{{user.telefone}}</td>
       <td>
         <button type="button" class="btn btn-primary" (click)="showConfirmAprovar(user.id)">Aprovar</button>
         <button type="button" class="btn btn-danger"(click)="showConfirmExcluir(user.id)">Excluir</button>

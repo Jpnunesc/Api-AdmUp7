@@ -12,6 +12,9 @@
         <li class="nav-item" [routerLinkActive]='["link-active"]'>
           <a class="nav-link" id="3" (click)="navegar($event)">Aprovados</a>
         </li>
+        <li class="nav-item" [routerLinkActive]='["link-active"]'>
+          <a class="nav-link" id="4" (click)="navegar($event)">Ganhadores</a>
+        </li>
       </ul>
       <!-- </div> -->
     </div>
@@ -25,6 +28,9 @@
     </div>
     <div *ngIf="pendente">
       <app-pendentes-rifas></app-pendentes-rifas>
+    </div>
+    <div *ngIf="ganhadores">
+      <app-ganhadores-rifas></app-ganhadores-rifas>
     </div>
   </div>
 </div>

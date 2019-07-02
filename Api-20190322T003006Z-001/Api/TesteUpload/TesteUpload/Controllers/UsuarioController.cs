@@ -37,7 +37,8 @@ namespace TesteUpload.Controllers
                 p.Id,
                 p.Nome,
                 p.Telefone,
-                p.Rifa
+                p.Rifa,
+                p.CodigoRifa
 
             }).ToListAsync();
 
@@ -60,7 +61,8 @@ namespace TesteUpload.Controllers
                 p.Id,
                 p.Nome,
                 p.Telefone,
-                p.Rifa
+                p.Rifa,
+                p.CodigoRifa
 
             }).ToListAsync();
 
@@ -70,6 +72,32 @@ namespace TesteUpload.Controllers
             return result;
 
         }
+
+        [HttpGet]
+        [EnableCors("MyPolicy")]
+        [Route("ganhador")]
+        public async Task<ReturnModel> GetGanhador()
+        {
+            ReturnModel result = new ReturnModel();
+            var usuario = _context.usuarios.Where(x => x.Ganhador == true).AsQueryable();
+
+            result.Object = await usuario.Include(x => x.Rifa).Select(p => new
+            {
+                p.Id,
+                p.Nome,
+                p.Telefone,
+                p.Rifa,
+                p.CodigoRifa
+
+            }).ToListAsync();
+
+
+            result.Success = true;
+            result.Message = "sucesso!!";
+            return result;
+
+        }
+
         [HttpGet]
         [EnableCors("MyPolicy")]
         [Route("rifas/{id}")]
@@ -83,7 +111,8 @@ namespace TesteUpload.Controllers
                 p.Id,
                 p.Nome,
                 p.Telefone,
-                p.Rifa
+                p.Rifa,
+                p.CodigoRifa
 
             }).ToListAsync();
 
@@ -101,14 +130,13 @@ namespace TesteUpload.Controllers
             ReturnModel result = new ReturnModel();
             try
             {
-                DateTime hoje = new DateTime();         
+                DateTime data =  DateTime.Now.AddDays(-3);
+
                 var usuarios = _context.usuarios.Where(e => e.Ativo == false).ToList();
                 foreach (var item in usuarios)
                 {
                     var rifa = _context.rifas.Where(x => x.Id == item.IdRifa).FirstOrDefault();
-                    int diferencaDatas = hoje.DayOfYear - item.dataOperacao.DayOfYear;
-
-                    if (diferencaDatas < 3)
+                    if (item.dataOperacao < data)
                     {
                         rifa.QuantidadePendente = rifa.QuantidadePendente + 1;
                         _context.rifas.Update(rifa);
@@ -165,12 +193,15 @@ namespace TesteUpload.Controllers
             try
             {
                 RifaModel rifa = new RifaModel();
+                CodigoModel codigo = new CodigoModel();
                  rifa = _context.rifas.Where(x => x.Id == usuario.IdRifa).FirstOrDefault();
-                if(rifa.QuantidadePendente > 0)
+                 codigo = _context.codigos.Where(x => x.IdRifa == usuario.IdRifa && x.Ativo == false).FirstOrDefault();
+                if(rifa.QuantidadePendente > 0 && codigo != null)
                 {
                     usuario.dataOperacao = new DateTime();
                     rifa.QuantidadePendente = rifa.QuantidadePendente - 1;
                     rifa.QuantidadaRestante = rifa.QuantidadaRestante - 1;
+                    usuario.CodigoRifa = codigo.Numero;
                     _context.Update(rifa);
                     _context.usuarios.Add(usuario);
                     _context.SaveChanges();
@@ -178,7 +209,7 @@ namespace TesteUpload.Controllers
                     result.Message = "Cadastro realizado com sucesso";
                 } else
                 {
-                    result.Message = "Operação não pode ser reaizada nesse momento, favor tente mais tarde.";
+                    result.Message = "Operação não pode ser realizada nesse momento, favor tente mais tarde.";
                 }
             }
             catch (Exception ex)

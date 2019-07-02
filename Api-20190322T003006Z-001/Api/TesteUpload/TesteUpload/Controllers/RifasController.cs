@@ -112,8 +112,9 @@ namespace TesteUpload.Controllers
                         }
                     }
                     _context.rifas.Add(rifa);
+                    _context.SaveChanges();
+                    CadastraCodigo(rifa);
                 }
-                _context.SaveChanges();
                 result.Message = "Dados salvos com sucesso!";
 
             }
@@ -127,7 +128,21 @@ namespace TesteUpload.Controllers
 
             return Ok(result);
         }
-
+        public void CadastraCodigo(RifaModel rifa)
+        {
+            int num = 1;
+            List<CodigoModel> codigos = new List<CodigoModel>();
+            for (int i = 0; i < rifa.Quantidade; i ++)
+            {
+                CodigoModel codigo = new CodigoModel();
+                codigo.Ativo = false;
+                codigo.IdRifa = rifa.Id;
+                codigo.Numero = i + num;
+                codigos.Add(codigo);
+            }
+            _context.codigos.AddRange(codigos);
+            _context.SaveChanges();
+        }
         // PUT: api/Rifas/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
@@ -145,10 +160,12 @@ namespace TesteUpload.Controllers
             {
                 var rifa = _context.rifas.Where(e => e.Id == id).First();
                 var usuarios = _context.usuarios.Where(x => x.IdRifa == rifa.Id).ToList();
+                var codigo = _context.codigos.Where(x => x.IdRifa == rifa.Id).ToList();
                 if(usuarios != null)
                 {
                     _context.usuarios.RemoveRange(usuarios);
                 }
+                _context.codigos.RemoveRange(codigo);
                 _context.rifas.Remove(rifa);
                 _context.SaveChanges();
                 result.Success = true;

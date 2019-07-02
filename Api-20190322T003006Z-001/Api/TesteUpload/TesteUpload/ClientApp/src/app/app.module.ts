@@ -34,7 +34,7 @@ import { ListaRifaComponent } from './rifas/lista-rifa/lista-rifa.component';
 import { AprovadosRifasComponent } from './rifas/aprovados-rifas/aprovados-rifas.component';
 import { PendentesRifasComponent } from './rifas/pendentes-rifas/pendentes-rifas.component';
 import { UsuarioService } from '../services/usuario-service';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { GanhadoresRifasComponent } from './rifas/ganhadores-rifas/ganhadores-rifas/ganhadores-rifas.component';
 
 
 
@@ -61,7 +61,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CadastraRifasComponent, 
     ListaRifaComponent,
      AprovadosRifasComponent, 
-     PendentesRifasComponent, DashboardComponent
+     PendentesRifasComponent,
+     GanhadoresRifasComponent
 
 
   ],

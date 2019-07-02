@@ -35,7 +35,7 @@ export class AprovadosRifasComponent implements OnInit {
     })
       .subscribe((isConfirmed) => {
         if (isConfirmed) {
-          this.ganhou(id);
+       //   this.ganhou(id);
         } else {
         }
       });

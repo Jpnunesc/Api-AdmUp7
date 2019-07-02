@@ -21,7 +21,7 @@
         <td>{{user.telefone}}</td>
         <td>
             <button type="button" class="btn btn-success" (click)="showConfirmGanhou(user.id)">Ganhou</button>
-            <button type="button" class="btn btn-danger">Excluir</button>
+            <button type="button" class="btn btn-danger"(click)="showConfirmExcluir(user.id)">Excluir</button>
           </td>
       </tr>
     </tbody>

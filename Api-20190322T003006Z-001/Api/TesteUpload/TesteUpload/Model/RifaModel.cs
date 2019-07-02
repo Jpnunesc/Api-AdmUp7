@@ -29,6 +29,7 @@ namespace TesteUpload.Model
         public string Status { get; set; }
 
         public virtual ICollection<UsuarioModel> Usuario { get; set; }
+        public virtual ICollection<CodigoModel> CodigoRifa { get; set; }
 
 
     }

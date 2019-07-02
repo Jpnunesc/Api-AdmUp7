@@ -70,6 +70,25 @@ namespace TesteUpload.Migrations
                     b.ToTable("Carro");
                 });
 
+            modelBuilder.Entity("TesteUpload.Model.CodigoModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool?>("Ativo");
+
+                    b.Property<int>("IdRifa");
+
+                    b.Property<int>("Numero");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdRifa");
+
+                    b.ToTable("Codigo");
+                });
+
             modelBuilder.Entity("TesteUpload.Model.EventoModel", b =>
                 {
                     b.Property<int>("Id")
@@ -180,6 +199,8 @@ namespace TesteUpload.Migrations
 
                     b.Property<bool?>("Ativo");
 
+                    b.Property<int>("CodigoRifa");
+
                     b.Property<string>("Estado")
                         .IsRequired();
 
@@ -200,6 +221,14 @@ namespace TesteUpload.Migrations
                     b.HasIndex("IdRifa");
 
                     b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("TesteUpload.Model.CodigoModel", b =>
+                {
+                    b.HasOne("TesteUpload.Model.RifaModel", "Rifa")
+                        .WithMany("CodigoRifa")
+                        .HasForeignKey("IdRifa")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TesteUpload.Model.ImagemModel", b =>

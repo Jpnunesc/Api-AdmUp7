@@ -23,7 +23,7 @@ namespace TesteUpload.Model
         public string Estado { get; set; }
 
         public bool? Ganhador  { get; set; }
-
+        public int CodigoRifa { get; set; }
         public DateTime dataOperacao { get; set; }
         public bool? Ativo { get; set; }
         public int IdRifa { get; set; }

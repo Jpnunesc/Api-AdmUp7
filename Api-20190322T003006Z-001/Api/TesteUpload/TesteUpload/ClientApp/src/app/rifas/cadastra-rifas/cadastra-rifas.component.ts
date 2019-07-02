@@ -56,6 +56,7 @@ export class CadastraRifasComponent implements OnInit {
    });
   }
   salvar() {
+    if (this.rifa.descricao && this.rifa.quantidade && this.rifa.preco && this.rifa.preco && this.arquivos) {
     const fd = new FormData();
     for (let i = 0; i < this.arquivos.length; i++) {
       fd.append(this.arquivos[i].name, this.arquivos[i]);
@@ -77,7 +78,10 @@ export class CadastraRifasComponent implements OnInit {
     this.rifa = new RifasModel();
     this.sucesso = true;
     setTimeout(() => this.sucesso = false, 4000);
-
+  } else {
+    this.msg = true;
+    setTimeout(() => this.msg = false, 3000);
+  }
   }
   arquivosSelecionados(event) {
     this.arquivos = event.target.files;
