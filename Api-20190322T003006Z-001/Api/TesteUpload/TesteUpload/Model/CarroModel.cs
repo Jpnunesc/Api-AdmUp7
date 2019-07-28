@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,6 +22,7 @@ namespace TesteUpload.Model
         public string Modelo { get; set; }
         [Required]
         public string Ano { get; set; }
+        public DateTime DataCadastro { get; set; }
         public string Descricao { get; set; }
         public string   Preco { get; set; }
         public string Cor { get; set; }
@@ -37,6 +39,9 @@ namespace TesteUpload.Model
         public bool? CarroAntigo  { get; set; }
         public bool? CarroSeminovo { get; set; }
         public string CaminhoImagem { get; set; }
+        public string Velocidade { get; set; }
+        public string Combustivel { get; set; }
+        public string Cambio { get; set; }
 
         public virtual ICollection<ImagemModel> Imagem { get; set; }
     }

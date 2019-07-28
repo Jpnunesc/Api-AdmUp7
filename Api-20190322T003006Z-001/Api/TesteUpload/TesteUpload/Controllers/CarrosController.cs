@@ -54,7 +54,9 @@ namespace TesteUpload.Controllers
         p.StatusCarro,
         p.CarroAntigo,
         p.CarroSeminovo,
-        p.CaminhoImagem
+        p.CaminhoImagem,
+        p.Combustivel,
+        p.Velocidade
 
       }).ToListAsync();
 
@@ -95,7 +97,9 @@ namespace TesteUpload.Controllers
         p.StatusCarro,
         p.CarroAntigo,
         p.CarroSeminovo,
-        p.CaminhoImagem
+        p.CaminhoImagem,
+        p.Combustivel,
+        p.Velocidade
 
       }).ToListAsync();
 
@@ -105,8 +109,50 @@ namespace TesteUpload.Controllers
       return result;
 
     }
+        // GET: api/Carros
+        [HttpGet]
+        [EnableCors("MyPolicy")]
+        [Route("recentes")]
+        public async Task<ReturnModel> GetNewcarro()
+        {
+            ReturnModel result = new ReturnModel();
+            var carro = _context.carro.OrderBy(d => d.DataCadastro).Take(10).AsQueryable();
 
-    [HttpGet]
+            result.Object = await carro.Select(p => new
+            {
+                p.Id,
+                p.Marca,
+                p.Modelo,
+                p.Ano,
+                p.Descricao,
+                p.Preco,
+                p.Cor,
+                p.Quilometragem,
+                p.Potencia,
+                p.PaisOrigem,
+                p.Bancos,
+                p.ArCondicionado,
+                p.Vidros,
+                p.Freios,
+                p.Tracao,
+                p.Rodas,
+                p.StatusCarro,
+                p.CarroAntigo,
+                p.CarroSeminovo,
+                p.CaminhoImagem,
+                p.Combustivel,
+                p.Velocidade
+
+            }).ToListAsync();
+
+
+            result.Success = true;
+            result.Message = "sucesso!!";
+            return result;
+
+        }
+
+        [HttpGet]
     [EnableCors("MyPolicy")]
     [Route("buscarPorId/{id}")]
     public async Task<ReturnModel> Getcarro(int id)
@@ -136,7 +182,9 @@ namespace TesteUpload.Controllers
         p.CarroAntigo,
         p.CarroSeminovo,
         p.CaminhoImagem,
-        p.Imagem
+        p.Imagem,
+        p.Combustivel,
+        p.Velocidade
 
       }).FirstOrDefaultAsync();
 
@@ -175,7 +223,9 @@ namespace TesteUpload.Controllers
         p.StatusCarro,
         p.CarroAntigo,
         p.CarroSeminovo,
-        p.CaminhoImagem
+        p.CaminhoImagem,
+        p.Combustivel,
+        p.Velocidade
 
       }).ToListAsync();
 
@@ -217,7 +267,10 @@ namespace TesteUpload.Controllers
         p.CarroAntigo,
         p.CarroSeminovo,
         p.CaminhoImagem,
-        p.Imagem
+        p.Imagem,
+        p.Combustivel,
+        p.Velocidade,
+        p.Cambio
       }).Where(p => p.Id == id).FirstOrDefaultAsync();
 
       if (result.Object != null)
@@ -265,6 +318,7 @@ namespace TesteUpload.Controllers
               }
             }
           }
+           carro.DataCadastro = new DateTime();
           _context.carro.Add(carro);
           _context.SaveChanges();
 

@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ProjetosEstudos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj": {}
+    "C:\\Projetos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj": {}
   },
   "projects": {
-    "C:\\ProjetosEstudos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj": {
+    "C:\\Projetos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ProjetosEstudos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj",
+        "projectUniqueName": "C:\\Projetos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj",
         "projectName": "TesteUpload",
-        "projectPath": "C:\\ProjetosEstudos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj",
-        "packagesPath": "C:\\Users\\jp_nu\\.nuget\\packages\\",
-        "outputPath": "C:\\ProjetosEstudos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\obj\\",
+        "projectPath": "C:\\Projetos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\TesteUpload.csproj",
+        "packagesPath": "C:\\Users\\João Paulo\\.nuget\\packages\\",
+        "outputPath": "C:\\Projetos\\Api-AdmUp7\\Api-20190322T003006Z-001\\Api\\TesteUpload\\TesteUpload\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\jp_nu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\João Paulo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

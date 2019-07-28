@@ -3,14 +3,16 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace TesteUpload.Migrations
 {
     [DbContext(typeof(UP7WebApiContext))]
-    partial class UP7WebApiContextModelSnapshot : ModelSnapshot
+    [Migration("20190727171249_V0002")]
+    partial class V0002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,15 +33,11 @@ namespace TesteUpload.Migrations
 
                     b.Property<string>("Bancos");
 
-                    b.Property<string>("Cambio");
-
                     b.Property<string>("CaminhoImagem");
 
                     b.Property<bool?>("CarroAntigo");
 
                     b.Property<bool?>("CarroSeminovo");
-
-                    b.Property<string>("Combustivel");
 
                     b.Property<string>("Cor");
 
@@ -68,8 +66,6 @@ namespace TesteUpload.Migrations
                     b.Property<string>("StatusCarro");
 
                     b.Property<string>("Tracao");
-
-                    b.Property<string>("Velocidade");
 
                     b.Property<string>("Vidros");
 
