@@ -28,22 +28,16 @@ namespace TesteUpload.Model
         public string Cor { get; set; }
         public string Quilometragem { get; set; }
         public string Potencia { get; set; }
-        public string PaisOrigem { get; set; }
-        public string Bancos { get; set; }
-        public string ArCondicionado { get; set; }
-        public string Vidros { get; set; }
-        public string Freios { get; set; }
-        public string Tracao { get; set; }
-        public string Rodas { get; set; }
-        public string StatusCarro { get; set; }
         public bool? CarroAntigo  { get; set; }
         public bool? CarroSeminovo { get; set; }
         public string CaminhoImagem { get; set; }
         public string Velocidade { get; set; }
         public string Combustivel { get; set; }
         public string Cambio { get; set; }
+        public string Portas { get; set; }
 
         public virtual ICollection<ImagemModel> Imagem { get; set; }
+        public virtual ICollection<AdicionalModel> Adicional { get; set; }
     }
 }
 

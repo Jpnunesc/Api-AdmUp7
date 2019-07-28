@@ -31,7 +31,7 @@ namespace TesteUpload.Controllers
     public async Task<ReturnModel> GetcarroAntigos()
     {
       ReturnModel result = new ReturnModel();
-      var carro = _context.carro.AsQueryable();
+      var carro = _context.carro.Include(a => a.Adicional).AsQueryable();
 
       result.Object = await carro.Select(p => new
       {
@@ -44,19 +44,13 @@ namespace TesteUpload.Controllers
         p.Cor,
         p.Quilometragem,
         p.Potencia,
-        p.PaisOrigem,
-        p.Bancos,
-        p.ArCondicionado,
-        p.Vidros,
-        p.Freios,
-        p.Tracao,
-        p.Rodas,
-        p.StatusCarro,
         p.CarroAntigo,
         p.CarroSeminovo,
         p.CaminhoImagem,
         p.Combustivel,
-        p.Velocidade
+        p.Velocidade,
+        p.Adicional,
+        p.Portas
 
       }).ToListAsync();
 
@@ -74,7 +68,7 @@ namespace TesteUpload.Controllers
     public async Task<ReturnModel> Getcarro()
     {
       ReturnModel result = new ReturnModel();
-      var carro = _context.carro.Where(x => x.CarroAntigo == true).AsQueryable();
+      var carro = _context.carro.Where(x => x.CarroAntigo == true).Include(a => a.Adicional).AsQueryable();
 
       result.Object = await carro.Select(p => new
       {
@@ -87,19 +81,13 @@ namespace TesteUpload.Controllers
         p.Cor,
         p.Quilometragem,
         p.Potencia,
-        p.PaisOrigem,
-        p.Bancos,
-        p.ArCondicionado,
-        p.Vidros,
-        p.Freios,
-        p.Tracao,
-        p.Rodas,
-        p.StatusCarro,
         p.CarroAntigo,
         p.CarroSeminovo,
         p.CaminhoImagem,
         p.Combustivel,
-        p.Velocidade
+        p.Velocidade,
+          p.Portas,
+        p.Adicional
 
       }).ToListAsync();
 
@@ -116,7 +104,7 @@ namespace TesteUpload.Controllers
         public async Task<ReturnModel> GetNewcarro()
         {
             ReturnModel result = new ReturnModel();
-            var carro = _context.carro.OrderBy(d => d.DataCadastro).Take(10).AsQueryable();
+            var carro = _context.carro.OrderBy(d => d.DataCadastro).Include(a => a.Adicional).Take(10).AsQueryable();
 
             result.Object = await carro.Select(p => new
             {
@@ -129,19 +117,13 @@ namespace TesteUpload.Controllers
                 p.Cor,
                 p.Quilometragem,
                 p.Potencia,
-                p.PaisOrigem,
-                p.Bancos,
-                p.ArCondicionado,
-                p.Vidros,
-                p.Freios,
-                p.Tracao,
-                p.Rodas,
-                p.StatusCarro,
                 p.CarroAntigo,
                 p.CarroSeminovo,
                 p.CaminhoImagem,
                 p.Combustivel,
-                p.Velocidade
+                p.Velocidade,
+                p.Portas,
+                p.Adicional
 
             }).ToListAsync();
 
@@ -160,7 +142,7 @@ namespace TesteUpload.Controllers
       ReturnModel result = new ReturnModel();
       var carro = _context.carro.Where(x => x.Id == id).AsQueryable();
 
-      result.Object = await carro.Include(x => x.Imagem).Select(p => new
+      result.Object = await carro.Include(x => x.Imagem).Include(a => a.Adicional).Select(p => new
       {
         p.Id,
         p.Marca,
@@ -171,20 +153,14 @@ namespace TesteUpload.Controllers
         p.Cor,
         p.Quilometragem,
         p.Potencia,
-        p.PaisOrigem,
-        p.Bancos,
-        p.ArCondicionado,
-        p.Vidros,
-        p.Freios,
-        p.Tracao,
-        p.Rodas,
-        p.StatusCarro,
+          p.Portas,
         p.CarroAntigo,
         p.CarroSeminovo,
         p.CaminhoImagem,
         p.Imagem,
         p.Combustivel,
-        p.Velocidade
+        p.Velocidade,
+        p.Adicional
 
       }).FirstOrDefaultAsync();
 
@@ -200,7 +176,7 @@ namespace TesteUpload.Controllers
     public async Task<ReturnModel> GetcarroSeminovo()
     {
       ReturnModel result = new ReturnModel();
-      var carro = _context.carro.Where(x => x.CarroSeminovo == true).AsQueryable();
+      var carro = _context.carro.Where(x => x.CarroSeminovo == true).Include(a => a.Adicional).AsQueryable();
 
       result.Object = await carro.Select(p => new
       {
@@ -213,19 +189,13 @@ namespace TesteUpload.Controllers
         p.Cor,
         p.Quilometragem,
         p.Potencia,
-        p.PaisOrigem,
-        p.Bancos,
-        p.ArCondicionado,
-        p.Vidros,
-        p.Freios,
-        p.Tracao,
-        p.Rodas,
-        p.StatusCarro,
         p.CarroAntigo,
         p.CarroSeminovo,
         p.CaminhoImagem,
+          p.Portas,
         p.Combustivel,
-        p.Velocidade
+        p.Velocidade,
+        p.Adicional
 
       }).ToListAsync();
 
@@ -244,7 +214,7 @@ namespace TesteUpload.Controllers
     public async Task<IActionResult> GetCarroModel([FromRoute] int id)
     {
       ReturnModel result = new ReturnModel();
-      var carro = _context.carro.Include(x => x.Imagem).AsQueryable();
+      var carro = _context.carro.Include(x => x.Imagem).Include(a => a.Adicional).AsQueryable();
       result.Object = await carro.Select(p => new
       {
         p.Id,
@@ -256,21 +226,15 @@ namespace TesteUpload.Controllers
         p.Cor,
         p.Quilometragem,
         p.Potencia,
-        p.PaisOrigem,
-        p.Bancos,
-        p.ArCondicionado,
-        p.Vidros,
-        p.Freios,
-        p.Tracao,
-        p.Rodas,
-        p.StatusCarro,
         p.CarroAntigo,
+          p.Portas,
         p.CarroSeminovo,
         p.CaminhoImagem,
         p.Imagem,
         p.Combustivel,
         p.Velocidade,
-        p.Cambio
+        p.Cambio,
+        p.Adicional
       }).Where(p => p.Id == id).FirstOrDefaultAsync();
 
       if (result.Object != null)

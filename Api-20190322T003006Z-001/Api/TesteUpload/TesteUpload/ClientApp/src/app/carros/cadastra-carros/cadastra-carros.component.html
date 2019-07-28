@@ -3,21 +3,21 @@
     <button type="button" style="margin-right: auto; width: 450px; height: 37px;" class="btn btn-success"
       (click)="atualizarRota()">Voltar</button>
     <button type="button" class="btn btn-primary" (click)="salvar()"
-      style="margin-left: 85%;width: 450px; height: 37px;">Salvar</button>
+      style="margin-left: 85%;width: 170px; height: 37px;">Salvar</button>
   </div>
   <div class="form-group" style="display: flex;" *ngIf="edit">
-    <button  type="button" style="margin-right: auto; width: 450px; height: 37px;" class="btn btn-success"
-    (click)="atualizarRota()">Voltar</button>
+    <button type="button" style="margin-right: auto; width: 450px; height: 37px;" class="btn btn-success"
+      (click)="atualizarRota()">Voltar</button>
     <button type="button" class="btn btn-primary" (click)="salvar()"
       style="margin-left: 85%;width: 450px; height: 37px;">Editar</button>
   </div>
   <table class="table table-striped">
-      <div *ngIf="sucesso"class="alert alert-success" role="alert">
-          Sucesso!
-        </div>
-        <div *ngIf="msg" class="alert alert-danger" role="alert">
-          Modelo e Imagens obrigatorios!
-        </div>
+    <div *ngIf="sucesso" class="alert alert-success" role="alert">
+      Sucesso!
+    </div>
+    <div *ngIf="msg" class="alert alert-danger" role="alert">
+      Modelo e Imagens obrigatorios!
+    </div>
     <tbody>
       <tr>
         <td colspan="1">
@@ -79,27 +79,11 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label">Pais:</label>
-                <div class="col-md-8 inputGroupContainer">
-                  <div class="input-group">
-                    <input id="postc" name="pais" [(ngModel)]="carro.paisOrigem" placeholder="" class="form-control"
-                      required="true" type="text"></div>
-                </div>
-              </div>
-              <div class="form-group">
                 <label class="col-md-4 control-label">Potência:</label>
                 <div class="col-md-8 inputGroupContainer">
                   <div class="input-group">
                     <input id="email" name="potencia" [(ngModel)]="carro.potencia" placeholder="" class="form-control"
                       type="text"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-4 control-label">Quilometragem:</label>
-                <div class="col-md-8 inputGroupContainer">
-                  <div class="input-group">
-                    <input id="phoneNumber" name="quilometragem" [(ngModel)]="carro.quilometragem" placeholder=""
-                      class="form-control" type="text"></div>
                 </div>
               </div>
             </fieldset>
@@ -114,51 +98,26 @@
           <form class="well form-horizontal">
             <fieldset>
               <div class="form-group">
-                <label class="col-md-4 control-label">Ar Condicionado:</label>
+                <label class="col-md-4 control-label">Quilometragem:</label>
                 <div class="col-md-8 inputGroupContainer">
                   <div class="input-group">
-                    <input id="fullName" name="ar" [(ngModel)]="carro.arCondicionado" placeholder=""
+                    <input id="phoneNumber" name="quilometragem" [(ngModel)]="carro.quilometragem" placeholder=""
                       class="form-control" type="text"></div>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label">Vidros:</label>
+                <label class="col-md-4 control-label">Combustivel:</label>
                 <div class="col-md-8 inputGroupContainer">
                   <div class="input-group">
-                    <input id="addressLine1" name="vidros" [(ngModel)]="carro.vidros" placeholder=""
+                    <input id="addressLine1" name="combustivel" [(ngModel)]="carro.combustivel" placeholder=""
                       class="form-control" type="text"></div>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label">Freios:</label>
+                <label class="col-md-4 control-label">Cambio:</label>
                 <div class="col-md-8 inputGroupContainer">
                   <div class="input-group">
-                    <input id="addressLine2" name="freios" [(ngModel)]="carro.freios" placeholder=""
-                      class="form-control" type="text"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-4 control-label">Rodas:</label>
-                <div class="col-md-8 inputGroupContainer">
-                  <div class="input-group">
-                    <input id="city" name="rodas" [(ngModel)]="carro.rodas" placeholder="" class="form-control"
-                      type="text"></div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-4 control-label">Tração:</label>
-                <div class="col-md-8 inputGroupContainer">
-                  <div class="input-group">
-                    <input id="state" name="tracao" [(ngModel)]="carro.tracao" placeholder="" class="form-control"
-                      type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-4 control-label">Status do Carro:</label>
-                <div class="col-md-8 inputGroupContainer">
-                  <div class="input-group">
-                    <input id="postcode" name="statusCarro" [(ngModel)]="carro.statusCarro" placeholder=""
+                    <input id="addressLine2" name="cambio" [(ngModel)]="carro.cambio" placeholder=""
                       class="form-control" type="text"></div>
                 </div>
               </div>
@@ -180,17 +139,50 @@
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-md-4 control-label">Bancos</label>
+                <label class="col-md-4 control-label">Velocidade</label>
                 <div class="col-md-8 inputGroupContainer">
                   <div class="input-group">
-                    <input id="phoneNumber" name="bancos" [(ngModel)]="carro.bancos" placeholder="" class="form-control"
-                      type="text"></div>
+                    <input id="phoneNumber" name="velocidade" [(ngModel)]="carro.velocidade" placeholder=""
+                      class="form-control" type="text"></div>
                 </div>
               </div>
+              <div class="form-group">
+                  <label class="col-md-4 control-label">Portas</label>
+                  <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group">
+                      <input id="phoneNumber" name="portas" [(ngModel)]="carro.portas" placeholder=""
+                        class="form-control" type="text"></div>
+                  </div>
+                </div>
             </fieldset>
           </form>
         </td>
       </tr>
     </tbody>
+    <div class="form-group">
+        <div class="adicional">
+          <div class="col-md-8 inputGroupContainer">
+            <div class="input-group">
+              <input name="adicional" [(ngModel)]="adicional" placeholder="Adicionais"
+                class="form-control" type="text"></div>
+          </div>
+        </div>
+        <button type="button" style="margin-left: 85px;
+        display: flex;" class="btn btn-primary" (click)="addAdicional()">Adicionar</button>
+        <table class="table">
+          <thead>
+            <tr>
+              <!-- <th>Adicional</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of carro.adicional">
+              <td>{{c.nome}}</td>
+              <td><button style="margin-left: auto; display: flex;" 
+                type="button" class="btn btn-danger" (click)="excluirAdicional(c)">Excluir</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   </table>
 </div>

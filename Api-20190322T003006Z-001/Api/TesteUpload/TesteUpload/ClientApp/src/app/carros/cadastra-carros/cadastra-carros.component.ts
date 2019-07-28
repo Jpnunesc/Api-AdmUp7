@@ -4,6 +4,7 @@ import { Component, Inject, OnInit, ViewContainerRef } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarroService } from '../../../services/carro-service';
+import { AdicionalModel } from '../../../models/adicionalModel';
 
 
 
@@ -23,6 +24,7 @@ export class CadastraCarrosComponent implements OnInit {
   public loading = false;
   private baseUrl: string;
   private http: HttpClient;
+  adicional: string;
 
   private arquivos: FileList;
   private imagemPrincipal: FileList;
@@ -44,6 +46,7 @@ export class CadastraCarrosComponent implements OnInit {
     } else {
       this.edit = false;
     }
+    this.adicional = '';
   }
   salvar() {
     if (this.carro.modelo && this.arquivos) {
@@ -112,6 +115,23 @@ export class CadastraCarrosComponent implements OnInit {
       }
       setTimeout(() => this.loading = false, 2000);
     });
+  }
+  addAdicional() {
+    if (this.adicional !== '') {
+      this.carro.adicional.push( new AdicionalModel({
+        nome: this.adicional
+      }));
+      this.adicional = '';
+    }
+  }
+  excluirAdicional(el) {
+    this.carro.adicional.forEach(item => {
+      if (item.nome === el.nome) {
+        this.carro.adicional.splice(this.carro.adicional.indexOf(el), 1);
+      }
+    console.log(this.carro.adicional);
+
+    })
   }
 }
 

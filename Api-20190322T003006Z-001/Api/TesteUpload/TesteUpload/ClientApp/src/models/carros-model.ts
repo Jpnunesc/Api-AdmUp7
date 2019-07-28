@@ -1,4 +1,5 @@
 import { ImagemModel } from './ImagemModel';
+import { AdicionalModel } from './adicionalModel';
 
 export class CarroModel {
     id: number;
@@ -9,24 +10,22 @@ export class CarroModel {
     cor: string;
     quilometragem: string;
     potencia: string;
-    paisOrigem: string;
-    bancos: string;
-    arCondicionado: string;
-    vidros: string;
-    freios: string;
-    tracao: string;
-    rodas: string;
     descricao: string;
-    statusCarro: string;
+    cambio: string;
+    velocidade: string;
+    combustivel: string;
     carroAntigo = false;
     carroSeminovo = false;
     caminhoImgPrincipal: string;
     caminhoImagem: string;
+    portas: string;
 
     Imagem: Array<ImagemModel>;
+    adicional: Array<AdicionalModel>;
 
     constructor(values: Object = {}) {
       this.Imagem = new Array<ImagemModel>();
+      this.adicional = new Array<AdicionalModel>();
       Object.assign(this, values);
     }
   }
