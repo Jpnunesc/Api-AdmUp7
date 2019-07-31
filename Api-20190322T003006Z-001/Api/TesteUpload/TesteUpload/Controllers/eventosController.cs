@@ -35,7 +35,7 @@ namespace TesteUpload.Controllers
             try
             {
 
-                result.Object = _context.eventos.ToList();
+                result.Object = _context.eventos.OrderBy(x => x.DataCriacao).ToList();
                 result.Success = true;
 
             }
@@ -162,6 +162,7 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
+                    evento.DataCriacao = new DateTime();
                     _context.eventos.Add(evento);
                 }
 
