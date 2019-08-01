@@ -15,6 +15,8 @@ namespace TesteUpload.Model
         [Key]
         public int Id { get; set; }
         [Required]
+        public string Titulo { get; set; }
+        [Required]
         public string Imagem { get; set; }
         [Required]
         public string Descricao { get; set; }

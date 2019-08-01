@@ -2,6 +2,7 @@ export class RifasModel {
 
     id: string;
     descricao: string;
+    titulo: string;
     imagem: string;
     preco: string;
     codigo: string;
