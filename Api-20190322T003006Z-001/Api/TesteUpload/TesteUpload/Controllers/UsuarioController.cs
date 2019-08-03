@@ -72,6 +72,30 @@ namespace TesteUpload.Controllers
             return result;
 
         }
+        [HttpGet]
+        [EnableCors("MyPolicy")]
+        [Route("aprovado/{id}")]
+        public async Task<ReturnModel> GetUsuarioAprovadosPorRifa(int id)
+        {
+            ReturnModel result = new ReturnModel();
+            var usuario = _context.usuarios.Where(x => x.Ativo == true && x.IdRifa == id).AsQueryable();
+
+            result.Object = await usuario.Include(x => x.Rifa).Select(p => new
+            {
+                p.Id,
+                p.Nome,
+                p.Telefone,
+                p.Estado,
+                p.CodigoRifa
+
+            }).ToListAsync();
+
+
+            result.Success = true;
+            result.Message = "sucesso!!";
+            return result;
+
+        }
 
         [HttpGet]
         [EnableCors("MyPolicy")]
@@ -199,6 +223,8 @@ namespace TesteUpload.Controllers
                 if(rifa.QuantidadePendente > 0 && codigo != null)
                 {
                     usuario.dataOperacao = new DateTime();
+                    usuario.Ativo = false;
+                    usuario.Ganhador = false;
                     rifa.QuantidadePendente = rifa.QuantidadePendente - 1;
                     rifa.QuantidadaRestante = rifa.QuantidadaRestante - 1;
                     usuario.CodigoRifa = codigo.Numero;
