@@ -37,8 +37,10 @@ export class UsuarioService {
   aprovar(id: number): Observable<any> {
     return this.http.get(this.pathUrlService + 'Usuario/aprovar/' + id, this.requestOptions).map(res => res.json());
   }
-  buscarUsuarioPorRifa(id: number): Observable<any> {
-    debugger;
-    return this.http.get(this.pathUrlService + 'Usuario/rifas/' + id, this.requestOptions).map(res => res.json());
+  buscarUsuarioPorRifaPendente(id: number): Observable<any> {
+    return this.http.get(this.pathUrlService + 'Usuario/rifas/pendentes/' + id, this.requestOptions).map(res => res.json());
+  }
+  buscarUsuarioPorRifaAprovados(id: number): Observable<any> {
+    return this.http.get(this.pathUrlService + 'Usuario/rifas/aprovados/' + id, this.requestOptions).map(res => res.json());
   }
 }

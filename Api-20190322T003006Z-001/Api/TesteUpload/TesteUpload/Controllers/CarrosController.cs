@@ -282,7 +282,7 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
-                    carro.DataCadastro = new DateTime();
+                    carro.DataCadastro = DateTime.Now; 
                     _context.Carro.Add(carro);
                     _context.SaveChanges();
 

@@ -42,17 +42,6 @@ export class GanhadoresRifasComponent implements OnInit {
       () => console.log('error.'));
     setTimeout(() => this.loading = false, 2000);
   }
-buscar() {
-  this.formSearch = new Array<UsuarioModel>();
-  if (this.idRifa) {
-    this.serviceUsuario.buscarUsuarioPorRifa(Number(this.idRifa)).subscribe(resp => {
-      console.log(resp);
-      if (resp.object) {
-        this.formSearch = resp.object;
-      }
-   });
-  }
-}
   showConfirmAprovar(id) {
     this.dialogService.addDialog(ConfirmComponent, {
       title: 'Alerta!',

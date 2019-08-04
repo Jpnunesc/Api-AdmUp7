@@ -42,7 +42,7 @@ export class PendentesRifasComponent implements OnInit {
 buscar() {
   this.formSearch = new Array<UsuarioModel>();
   if (this.idRifa) {
-    this.serviceUsuario.buscarUsuarioPorRifa(Number(this.idRifa)).subscribe(resp => {
+    this.serviceUsuario.buscarUsuarioPorRifaPendente(Number(this.idRifa)).subscribe(resp => {
       console.log(resp);
       if (resp.object) {
         this.formSearch = resp.object;

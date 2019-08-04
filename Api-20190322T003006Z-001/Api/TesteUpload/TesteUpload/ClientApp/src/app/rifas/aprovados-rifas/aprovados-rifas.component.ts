@@ -91,7 +91,7 @@ export class AprovadosRifasComponent implements OnInit {
   buscar() {
     this.formSearch = new Array<UsuarioModel>();
     if (this.idRifa && this.idRifa !== 'Selecione o codígo da rifa...') {
-      this.serviceUsuario.buscarUsuarioPorRifa(Number(this.idRifa)).subscribe(resp => {
+      this.serviceUsuario.buscarUsuarioPorRifaAprovados(Number(this.idRifa)).subscribe(resp => {
         console.log(resp);
         if (resp.object) {
           this.formSearch = resp.object;

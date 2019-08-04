@@ -163,7 +163,7 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
-                    evento.DataCriacao = new DateTime();
+                    evento.DataCriacao = DateTime.Now;
                     _context.Eventos.Add(evento);
                 }
 

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using TesteUpload.Model;
 
 namespace TesteUpload.Controllers
@@ -124,11 +120,35 @@ namespace TesteUpload.Controllers
 
         [HttpGet]
         [EnableCors("MyPolicy")]
-        [Route("rifas/{id}")]
-       public async Task<ReturnModel> GetUsuarioPorRifa(int id)
+        [Route("rifas/pendente/{id}")]
+       public async Task<ReturnModel> GetUsuarioPorRifaPendente(int id)
         {
             ReturnModel result = new ReturnModel();
-            var usuario = _context.Usuarios.Where(x => x.IdRifa == id).AsQueryable();
+            var usuario = _context.Usuarios.Where(x => x.IdRifa == id && x.Ativo == false).AsQueryable();
+
+            result.Object = await usuario.Include(x => x.Rifa).Select(p => new
+            {
+                p.Id,
+                p.Nome,
+                p.Telefone,
+                p.Rifa,
+                p.CodigoRifa
+
+            }).ToListAsync();
+
+
+            result.Success = true;
+            result.Message = "sucesso!!";
+            return result;
+
+        }
+        [HttpGet]
+        [EnableCors("MyPolicy")]
+        [Route("rifas/aprovado/{id}")]
+        public async Task<ReturnModel> GetUsuarioPorRifaAprovado(int id)
+        {
+            ReturnModel result = new ReturnModel();
+            var usuario = _context.Usuarios.Where(x => x.IdRifa == id && x.Ativo == true).AsQueryable();
 
             result.Object = await usuario.Include(x => x.Rifa).Select(p => new
             {
@@ -194,7 +214,7 @@ namespace TesteUpload.Controllers
                     usuario.Ativo = true;
                     usuario.Rifa.QuantidadaRestante = usuario.Rifa.QuantidadaRestante - 1;
                 }
-                _context.Update(usuario);
+                _context.Usuarios.Update(usuario);
                 _context.SaveChanges();
                 result.Success = true;
                 result.Message = "Operação realizada com sucesso!";
@@ -222,13 +242,15 @@ namespace TesteUpload.Controllers
                  codigo = _context.Codigos.Where(x => x.IdRifa == usuario.IdRifa && x.Ativo == false).FirstOrDefault();
                 if(rifa.QuantidadePendente > 0 && codigo != null)
                 {
-                    usuario.dataOperacao = new DateTime();
+                    usuario.dataOperacao = DateTime.Now;
                     usuario.Ativo = false;
                     usuario.Ganhador = false;
                     rifa.QuantidadePendente -= 1;
                     rifa.QuantidadaRestante -= 1;
                     usuario.CodigoRifa = codigo.Numero;
-                    _context.Update(rifa);
+                    codigo.Ativo = true;
+                    _context.Codigos.Update(codigo);
+                    _context.Rifas.Update(rifa);
                     _context.Usuarios.Add(usuario);
                     _context.SaveChanges();
                     result.Success = true;
@@ -258,6 +280,7 @@ namespace TesteUpload.Controllers
             {
                 var usuario = _context.Usuarios.Where(e => e.Id == id).First();
                 var rifa = _context.Rifas.Where(x => x.Id == usuario.IdRifa).FirstOrDefault();
+                var codigo = _context.Codigos.Where(x => x.IdRifa == usuario.IdRifa && x.Numero == usuario.CodigoRifa).FirstOrDefault();
                 if(usuario.Ativo == true)
                 {
                     rifa.QuantidadaRestante += 1;
@@ -266,6 +289,8 @@ namespace TesteUpload.Controllers
                 {
                     rifa.QuantidadePendente += 1;
                 }
+                codigo.Ativo = false;
+                _context.Codigos.Update(codigo);
                 _context.Rifas.Update(rifa);
                 _context.Usuarios.Remove(usuario);
                 _context.SaveChanges();
