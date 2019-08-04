@@ -1,12 +1,13 @@
 <button (click)="atualizar()" type="submit" class="btn btn-warning" style="margin-left: auto; display: flex;">Atualizar Listar</button>
-<div style="display: flex">
+<div style="display: flex; margin-top: 2%;">
   <label style="margin-right: 0.5%; margin: 5px;" for="inputState">Código:</label>
   <select placeholder="Selecione o codígo da rifa..." [(ngModel)]="idRifa" id="inputState" class="form-control"
     style="margin-right: 2%; height: fit-content;">
     <option *ngFor="let item of arrRifas" [value]="item.id">{{item.codigo}}</option>
   </select>
-  <button (click)="buscar()" type="submit" class="btn btn-primary mb-2" style="margin-right: 50%;">Buscar</button>
+  <button (click)="buscar()" type="submit" class="btn btn-primary mb-2">Buscar</button>
 </div>
+<div class="table-responsive">
 <table class="table table-striped" *ngIf="formSearch.length">
   <thead>
     <tr>
@@ -30,3 +31,4 @@
     </tr>
   </tbody>
 </table>
+</div>

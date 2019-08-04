@@ -11,6 +11,6 @@ import { GanhadoresRifasComponent } from './ganhadores-rifas/ganhadores-rifas/ga
   imports: [
     CommonModule
   ],
-  declarations: [CadastraRifasComponent, TemplateRifasComponent, ListaRifaComponent, AprovadosRifasComponent, PendentesRifasComponent, GanhadoresRifasComponent]
+  declarations: []
 })
 export class RifasModule { }

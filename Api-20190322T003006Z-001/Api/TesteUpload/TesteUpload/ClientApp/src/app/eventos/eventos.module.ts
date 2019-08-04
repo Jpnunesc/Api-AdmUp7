@@ -7,6 +7,6 @@ import { ListaEventosComponent } from './lista-eventos/lista-eventos.component';
   imports: [
     CommonModule
   ],
-  declarations: [CadastraEventosComponent, ListaEventosComponent]
+  declarations: []
 })
 export class EventosModule { }

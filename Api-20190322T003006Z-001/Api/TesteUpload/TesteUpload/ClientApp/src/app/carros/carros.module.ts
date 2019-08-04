@@ -9,6 +9,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     CommonModule,
     BrowserAnimationsModule
   ],
-  declarations: [ListaCarrosComponent, CadastraCarrosComponent],
+  declarations: [],
 })
 export class CarrosModule { }

@@ -9,7 +9,7 @@ import { UsuarioModel } from '../../models/usuario-model';
 })
 export class LoginComponent implements OnInit {
   msg = false;
-  private usuario: UsuarioModel = new UsuarioModel();
+   usuario: UsuarioModel = new UsuarioModel();
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
