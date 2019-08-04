@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TesteUpload.Migrations
 {
-    public partial class v004 : Migration
+    public partial class V004 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

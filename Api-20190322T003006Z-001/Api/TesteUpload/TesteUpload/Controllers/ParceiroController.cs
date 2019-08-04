@@ -17,7 +17,7 @@ namespace TesteUpload.Controllers
     public class ParceiroController : ControllerBase
     {
         private readonly UP7WebApiContext _context;
-        private IHostingEnvironment _env;
+        private readonly IHostingEnvironment _env;
 
         public ParceiroController(UP7WebApiContext context, IHostingEnvironment env)
         {
@@ -33,7 +33,7 @@ namespace TesteUpload.Controllers
             try
             {
 
-                result.Object = _context.parceiros.ToList();
+                result.Object = _context.Parceiros.ToList();
                 result.Success = true;
 
             }
@@ -55,7 +55,7 @@ namespace TesteUpload.Controllers
             {
                 if (id != 0)
                 {
-                    result.Object = _context.parceiros.Where(x => x.Id == id).First();
+                    result.Object = _context.Parceiros.Where(x => x.Id == id).First();
 
                 }
                 result.Success = true;
@@ -77,10 +77,11 @@ namespace TesteUpload.Controllers
         public ReturnModel UploadFile()
         {
             ReturnModel result = new ReturnModel();
-            ParceiroModel parceiro = new ParceiroModel();
+            
             try
             {
-                 parceiro = JsonConvert.DeserializeObject<ParceiroModel>(Request.Form["parceiro"]);
+                ParceiroModel parceiro = new ParceiroModel();
+                parceiro = JsonConvert.DeserializeObject<ParceiroModel>(Request.Form["parceiro"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
@@ -98,7 +99,7 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
-                    _context.parceiros.Update(parceiro);
+                    _context.Parceiros.Update(parceiro);
                 } else
                 {
                     foreach (var arquivo in Request.Form.Files)
@@ -113,7 +114,7 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
-                    _context.parceiros.Add(parceiro);
+                    _context.Parceiros.Add(parceiro);
                 }
  
                 _context.SaveChanges();
@@ -121,9 +122,8 @@ namespace TesteUpload.Controllers
                 result.Success = true;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var e = ex;
                 result.Success = false;
                 result.Message = "Erro, verifique se os dados estão corretos!";
                 return result;
@@ -133,19 +133,6 @@ namespace TesteUpload.Controllers
             return result;
         }
 
-        // POST: api/Parceiro
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-
-        }
-
-        // PUT: api/Parceiro/5
-        [HttpPut]
-        [Route("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
@@ -155,14 +142,14 @@ namespace TesteUpload.Controllers
             ReturnModel result = new ReturnModel();
             try
             {
-                var parceiro = _context.parceiros.Where(e => e.Id == id).First();
+                var parceiro = _context.Parceiros.Where(e => e.Id == id).First();
                 //var carroModel = await _context.carro.FindAsync(id);
-                _context.parceiros.Remove(parceiro);
+                _context.Parceiros.Remove(parceiro);
                 _context.SaveChanges();
                 result.Success = true;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
             }

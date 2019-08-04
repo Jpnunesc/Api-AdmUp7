@@ -18,7 +18,7 @@ namespace TesteUpload.Controllers
     {
 
         private readonly UP7WebApiContext _context;
-        private IHostingEnvironment _env;
+        private readonly IHostingEnvironment _env;
 
         public InstituicaoController(UP7WebApiContext context, IHostingEnvironment env)
         {
@@ -35,7 +35,7 @@ namespace TesteUpload.Controllers
             try
             {
 
-                result.Object = _context.instituicao.ToList();
+                result.Object = _context.Instituicao.ToList();
                 result.Success = true;
 
             }
@@ -47,13 +47,6 @@ namespace TesteUpload.Controllers
             return result;
         }
 
-        // GET: api/Instituicao/5
-        [HttpGet]
-        [Route("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         [Produces("application/json")]
         [HttpPost, DisableRequestSizeLimit]
@@ -62,10 +55,11 @@ namespace TesteUpload.Controllers
         public async Task<IActionResult> UploadFile()
         {
             ReturnModel result = new ReturnModel();
-            InstituicaoModel instituicao = new InstituicaoModel();
+            
             try
             {
-                 instituicao = JsonConvert.DeserializeObject<InstituicaoModel>(Request.Form["instituicao"]);
+                InstituicaoModel instituicao = new InstituicaoModel();
+                instituicao = JsonConvert.DeserializeObject<InstituicaoModel>(Request.Form["instituicao"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
@@ -83,7 +77,7 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
-                    _context.instituicao.Update(instituicao);
+                    _context.Instituicao.Update(instituicao);
                 } else
                 {
                     foreach (var arquivo in Request.Form.Files)
@@ -98,34 +92,20 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
-                    _context.instituicao.Add(instituicao);
+                    _context.Instituicao.Add(instituicao);
                 }            
                 _context.SaveChanges();
                 result.Message = "Dados salvos com sucesso!";
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var e = ex;
                 result.Message = "Erro, verifique se os dados estão corretos!";
                 return Ok(result);
 
             }
 
             return Ok(result);
-        }
-
-        // POST: api/Instituicao
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT: api/Instituicao/5
-        [HttpPut]
-        [Route("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
 
         // DELETE: api/ApiWithActions/5
@@ -136,14 +116,14 @@ namespace TesteUpload.Controllers
             ReturnModel result = new ReturnModel();
             try
             {
-                var instituicao = _context.instituicao.Where(e => e.Id == id).First();
+                var instituicao = _context.Instituicao.Where(e => e.Id == id).First();
                 //var carroModel = await _context.carro.FindAsync(id);
-                _context.instituicao.Remove(instituicao);
+                _context.Instituicao.Remove(instituicao);
                 _context.SaveChanges();
                 result.Success = true;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
             }

@@ -12,15 +12,15 @@ public class UP7WebApiContext : DbContext
     {
     }
 
-    public DbSet<CarroModel> carro { get; set; }
-    public DbSet<EventoModel> eventos { get; set; }
-    public DbSet<ImagemModel> imagens { get; set; }
-    public DbSet<InstituicaoModel> instituicao { get; set; }
-    public DbSet<ParceiroModel> parceiros { get; set; }
-    public DbSet<RifaModel> rifas { get; set; }
-    public DbSet<UsuarioModel> usuarios { get; set; }
-    public DbSet<CodigoModel> codigos { get; set; }
-    public DbSet<AdicionalModel> adicional { get; set; }
+    public DbSet<CarroModel> Carro { get; set; }
+    public DbSet<EventoModel> Eventos { get; set; }
+    public DbSet<ImagemModel> Imagens { get; set; }
+    public DbSet<InstituicaoModel> Instituicao { get; set; }
+    public DbSet<ParceiroModel> Parceiros { get; set; }
+    public DbSet<RifaModel> Rifas { get; set; }
+    public DbSet<UsuarioModel> Usuarios { get; set; }
+    public DbSet<CodigoModel> Codigos { get; set; }
+    public DbSet<AdicionalModel> Adicional { get; set; }
 }
 
 

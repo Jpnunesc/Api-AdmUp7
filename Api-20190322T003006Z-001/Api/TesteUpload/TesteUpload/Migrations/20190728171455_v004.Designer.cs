@@ -10,7 +10,7 @@ namespace TesteUpload.Migrations
 {
     [DbContext(typeof(UP7WebApiContext))]
     [Migration("20190728171455_v004")]
-    partial class v004
+    partial class V004
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

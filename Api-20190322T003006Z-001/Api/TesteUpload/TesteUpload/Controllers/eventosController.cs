@@ -15,12 +15,12 @@ namespace TesteUpload.Controllers
     [Route("api/[controller]/")]
     [ApiController]
     //[EnableCors("MyPolicy")]
-    public class eventosController : ControllerBase
+    public class EventosController : ControllerBase
     {
         private readonly UP7WebApiContext _context;
-        private IHostingEnvironment _env;
+        private readonly IHostingEnvironment _env;
 
-        public eventosController(UP7WebApiContext context, IHostingEnvironment env)
+        public EventosController(UP7WebApiContext context, IHostingEnvironment env)
         {
             _context = context;
             _env = env;
@@ -35,7 +35,7 @@ namespace TesteUpload.Controllers
             try
             {
 
-                result.Object = _context.eventos.OrderBy(x => x.DataCriacao).ToList();
+                result.Object = _context.Eventos.OrderBy(x => x.DataCriacao).ToList();
                 result.Success = true;
 
             }
@@ -58,11 +58,11 @@ namespace TesteUpload.Controllers
             {
                 if(id != 0)
                 {
-                    result.Object = _context.eventos.Where(x => x.Mes == id).ToList();
+                    result.Object = _context.Eventos.Where(x => x.Mes == id).ToList();
 
                 } else
                 {
-                    result.Object = _context.eventos.ToList();
+                    result.Object = _context.Eventos.ToList();
 
                 }
                 result.Success = true;
@@ -86,7 +86,7 @@ namespace TesteUpload.Controllers
             {
                 if (id != 0)
                 {
-                    result.Object = _context.eventos.Where(x => x.Id == id).First();
+                    result.Object = _context.Eventos.Where(x => x.Id == id).First();
 
                 }
 
@@ -107,7 +107,7 @@ namespace TesteUpload.Controllers
             try
             {
               
-                result.Object =  _context.eventos.Where(x => x.Mes == id).ToList();
+                result.Object =  _context.Eventos.Where(x => x.Mes == id).ToList();
                 result.Success = true;
 
             }
@@ -126,10 +126,11 @@ namespace TesteUpload.Controllers
         public async Task<IActionResult> UploadFile()
         {
             ReturnModel result = new ReturnModel();
-            EventoModel evento = new EventoModel();
+            
             try
             {
-                 evento = JsonConvert.DeserializeObject<EventoModel>(Request.Form["evento"]);
+                EventoModel evento = new EventoModel();
+                evento = JsonConvert.DeserializeObject<EventoModel>(Request.Form["evento"]);
                 var webRoot = _env.WebRootPath;
                 var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
@@ -147,7 +148,7 @@ namespace TesteUpload.Controllers
                             }
                         }
                     }
-                    _context.eventos.Update(evento);
+                    _context.Eventos.Update(evento);
                 } else
                 {
                     foreach (var arquivo in Request.Form.Files)
@@ -163,7 +164,7 @@ namespace TesteUpload.Controllers
                         }
                     }
                     evento.DataCriacao = new DateTime();
-                    _context.eventos.Add(evento);
+                    _context.Eventos.Add(evento);
                 }
 
 
@@ -171,20 +172,14 @@ namespace TesteUpload.Controllers
                 result.Message = "Dados salvos com sucesso!";
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var e = ex;
                 result.Message = "Erro, verifique se os dados estão corretos!";
                 return Ok(result);
                
             }
 
             return Ok(result);
-        }
-        // PUT: api/eventos/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
 
         [HttpDelete("{id}")]
@@ -194,14 +189,14 @@ namespace TesteUpload.Controllers
             ReturnModel result = new ReturnModel();
             try
             {
-                var evento = _context.eventos.Where(e => e.Id == id).First();
+                var evento = _context.Eventos.Where(e => e.Id == id).First();
                 //var carroModel = await _context.carro.FindAsync(id);
-                _context.eventos.Remove(evento);
+                _context.Eventos.Remove(evento);
                 _context.SaveChanges();
                 result.Success = true;
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
             }

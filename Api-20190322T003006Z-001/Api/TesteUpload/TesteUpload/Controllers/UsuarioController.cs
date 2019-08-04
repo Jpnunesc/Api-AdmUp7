@@ -30,7 +30,7 @@ namespace TesteUpload.Controllers
         public async Task<ReturnModel> GetPendente()
         {
             ReturnModel result = new ReturnModel();
-            var usuario = _context.usuarios.Where(x => x.Ativo == false).AsQueryable();
+            var usuario = _context.Usuarios.Where(x => x.Ativo == false).AsQueryable();
 
             result.Object = await usuario.Include(x => x.Rifa).Select(p => new
             {
@@ -54,7 +54,7 @@ namespace TesteUpload.Controllers
         public async Task<ReturnModel> GetAprovados()
         {
             ReturnModel result = new ReturnModel();
-            var usuario = _context.usuarios.Where(x => x.Ativo == true).AsQueryable();
+            var usuario = _context.Usuarios.Where(x => x.Ativo == true).AsQueryable();
 
             result.Object = await usuario.Include(x => x.Rifa).Select(p => new
             {
@@ -78,7 +78,7 @@ namespace TesteUpload.Controllers
         public async Task<ReturnModel> GetUsuarioAprovadosPorRifa(int id)
         {
             ReturnModel result = new ReturnModel();
-            var usuario = _context.usuarios.Where(x => x.Ativo == true && x.IdRifa == id).AsQueryable();
+            var usuario = _context.Usuarios.Where(x => x.Ativo == true && x.IdRifa == id).AsQueryable();
 
             result.Object = await usuario.Include(x => x.Rifa).Select(p => new
             {
@@ -103,7 +103,7 @@ namespace TesteUpload.Controllers
         public async Task<ReturnModel> GetGanhador()
         {
             ReturnModel result = new ReturnModel();
-            var usuario = _context.usuarios.Where(x => x.Ganhador == true).AsQueryable();
+            var usuario = _context.Usuarios.Where(x => x.Ganhador == true).AsQueryable();
 
             result.Object = await usuario.Include(x => x.Rifa).Select(p => new
             {
@@ -128,7 +128,7 @@ namespace TesteUpload.Controllers
        public async Task<ReturnModel> GetUsuarioPorRifa(int id)
         {
             ReturnModel result = new ReturnModel();
-            var usuario = _context.usuarios.Where(x => x.IdRifa == id).AsQueryable();
+            var usuario = _context.Usuarios.Where(x => x.IdRifa == id).AsQueryable();
 
             result.Object = await usuario.Include(x => x.Rifa).Select(p => new
             {
@@ -149,22 +149,22 @@ namespace TesteUpload.Controllers
         [HttpGet]
         [EnableCors("MyPolicy")]
         [Route("atualizar")]
-        public ReturnModel atualizarRifas()
+        public ReturnModel AtualizarRifas()
         {
             ReturnModel result = new ReturnModel();
             try
             {
                 DateTime data =  DateTime.Now.AddDays(-3);
 
-                var usuarios = _context.usuarios.Where(e => e.Ativo == false).ToList();
+                var usuarios = _context.Usuarios.Where(e => e.Ativo == false).ToList();
                 foreach (var item in usuarios)
                 {
-                    var rifa = _context.rifas.Where(x => x.Id == item.IdRifa).FirstOrDefault();
+                    var rifa = _context.Rifas.Where(x => x.Id == item.IdRifa).FirstOrDefault();
                     if (item.dataOperacao < data)
                     {
-                        rifa.QuantidadePendente = rifa.QuantidadePendente + 1;
-                        _context.rifas.Update(rifa);
-                        _context.usuarios.Remove(item);
+                        rifa.QuantidadePendente += 1;
+                        _context.Rifas.Update(rifa);
+                        _context.Usuarios.Remove(item);
                     }
                 }
                 _context.SaveChanges();
@@ -172,7 +172,7 @@ namespace TesteUpload.Controllers
                 result.Message = "Operação realizada com Sucesso!";
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
                 result.Message = "Error na operação!";
@@ -183,12 +183,12 @@ namespace TesteUpload.Controllers
         [HttpGet]
         [EnableCors("MyPolicy")]
         [Route("aprovar/{id}")]
-        public ReturnModel aprovar(int id)
+        public ReturnModel Aprovar(int id)
         {
             ReturnModel result = new ReturnModel();
             try
             {
-                var usuario = _context.usuarios.Where(x => x.Id == id).Include(i => i.Rifa).FirstOrDefault();
+                var usuario = _context.Usuarios.Where(x => x.Id == id).Include(i => i.Rifa).FirstOrDefault();
                 if (usuario.Rifa.QuantidadePendente > 0)
                 {
                     usuario.Ativo = true;
@@ -199,7 +199,7 @@ namespace TesteUpload.Controllers
                 result.Success = true;
                 result.Message = "Operação realizada com sucesso!";
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
                 result.Message = "Erro na operação!";
@@ -218,18 +218,18 @@ namespace TesteUpload.Controllers
             {
                 RifaModel rifa = new RifaModel();
                 CodigoModel codigo = new CodigoModel();
-                 rifa = _context.rifas.Where(x => x.Id == usuario.IdRifa).FirstOrDefault();
-                 codigo = _context.codigos.Where(x => x.IdRifa == usuario.IdRifa && x.Ativo == false).FirstOrDefault();
+                 rifa = _context.Rifas.Where(x => x.Id == usuario.IdRifa).FirstOrDefault();
+                 codigo = _context.Codigos.Where(x => x.IdRifa == usuario.IdRifa && x.Ativo == false).FirstOrDefault();
                 if(rifa.QuantidadePendente > 0 && codigo != null)
                 {
                     usuario.dataOperacao = new DateTime();
                     usuario.Ativo = false;
                     usuario.Ganhador = false;
-                    rifa.QuantidadePendente = rifa.QuantidadePendente - 1;
-                    rifa.QuantidadaRestante = rifa.QuantidadaRestante - 1;
+                    rifa.QuantidadePendente -= 1;
+                    rifa.QuantidadaRestante -= 1;
                     usuario.CodigoRifa = codigo.Numero;
                     _context.Update(rifa);
-                    _context.usuarios.Add(usuario);
+                    _context.Usuarios.Add(usuario);
                     _context.SaveChanges();
                     result.Success = true;
                     result.Message = "Cadastro realizado com sucesso";
@@ -247,11 +247,6 @@ namespace TesteUpload.Controllers
             return result;
         }
 
-        // PUT: api/Usuario/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
@@ -261,24 +256,24 @@ namespace TesteUpload.Controllers
             ReturnModel result = new ReturnModel();
             try
             {
-                var usuario = _context.usuarios.Where(e => e.Id == id).First();
-                var rifa = _context.rifas.Where(x => x.Id == usuario.IdRifa).FirstOrDefault();
+                var usuario = _context.Usuarios.Where(e => e.Id == id).First();
+                var rifa = _context.Rifas.Where(x => x.Id == usuario.IdRifa).FirstOrDefault();
                 if(usuario.Ativo == true)
                 {
-                    rifa.QuantidadaRestante = rifa.QuantidadaRestante + 1;
-                    rifa.QuantidadePendente = rifa.QuantidadePendente + 1;
+                    rifa.QuantidadaRestante += 1;
+                    rifa.QuantidadePendente += 1;
                 } else
                 {
-                    rifa.QuantidadePendente = rifa.QuantidadePendente + 1;
+                    rifa.QuantidadePendente += 1;
                 }
-                _context.rifas.Update(rifa);
-                _context.usuarios.Remove(usuario);
+                _context.Rifas.Update(rifa);
+                _context.Usuarios.Remove(usuario);
                 _context.SaveChanges();
                 result.Success = true;
                 result.Message = "Operação realizada com Sucesso!";
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.Success = false;
                 result.Message = "Error na operação!";
