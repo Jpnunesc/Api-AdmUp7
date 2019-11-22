@@ -12,7 +12,7 @@ namespace TesteUpload.Model
         [Required]
         public string Nome { get; set; }
         [Required]
-        public string Imagem { get; set; }
+        public string ImgBase64 { get; set; }
         public string Descricao { get; set; }
 
     }

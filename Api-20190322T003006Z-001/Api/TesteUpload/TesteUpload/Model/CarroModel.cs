@@ -30,11 +30,11 @@ namespace TesteUpload.Model
         public string Potencia { get; set; }
         public bool? CarroAntigo  { get; set; }
         public bool? CarroSeminovo { get; set; }
-        public string CaminhoImagem { get; set; }
         public string Velocidade { get; set; }
         public string Combustivel { get; set; }
         public string Cambio { get; set; }
         public string Portas { get; set; }
+        public string ImgBase64 { get; set; }
 
         public virtual ICollection<ImagemModel> Imagem { get; set; }
         public virtual ICollection<AdicionalModel> Adicional { get; set; }

@@ -20,6 +20,8 @@ namespace TesteUpload.Controllers
         private readonly UP7WebApiContext _context;
         private readonly IHostingEnvironment _env;
 
+        public IHostingEnvironment Env => _env;
+
         public InstituicaoController(UP7WebApiContext context, IHostingEnvironment env)
         {
             _context = context;
@@ -52,48 +54,47 @@ namespace TesteUpload.Controllers
         [HttpPost, DisableRequestSizeLimit]
         [EnableCors("MyPolicy")]
         [Route("cadastro")]
-        public async Task<IActionResult> UploadFile()
+        public IActionResult UploadFile()
         {
             ReturnModel result = new ReturnModel();
-            
+
             try
             {
                 InstituicaoModel instituicao = new InstituicaoModel();
                 instituicao = JsonConvert.DeserializeObject<InstituicaoModel>(Request.Form["instituicao"]);
-                var webRoot = _env.WebRootPath;
-                var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
-                if(instituicao.Id != 0) 
+                if (instituicao.Id != 0)
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
                         {
-                            instituicao.Imagem = ($"conteudo/{arquivo.Name}");
-                            var imagem = $"{ filePath}{ arquivo.Name}";
-                            using (var stream = new FileStream(imagem, System.IO.FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                await arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                instituicao.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }
                     _context.Instituicao.Update(instituicao);
-                } else
+                }
+                else
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
                         {
-                            instituicao.Imagem = ($"conteudo/{arquivo.Name}");
-                            var imagem = $"{ filePath}{ arquivo.Name}";
-                            using (var stream = new FileStream(imagem, System.IO.FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                await arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                instituicao.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }
                     _context.Instituicao.Add(instituicao);
-                }            
+                }
                 _context.SaveChanges();
                 result.Message = "Dados salvos com sucesso!";
 

@@ -19,6 +19,8 @@ namespace TesteUpload.Controllers
         private readonly UP7WebApiContext _context;
         private readonly IHostingEnvironment _env;
 
+        public IHostingEnvironment Env => _env;
+
         public RifasController(UP7WebApiContext context, IHostingEnvironment env)
         {
             _context = context;
@@ -73,31 +75,30 @@ namespace TesteUpload.Controllers
         [HttpPost, DisableRequestSizeLimit]
         [EnableCors("MyPolicy")]
         [Route("cadastro")]
-        public async Task<IActionResult> UploadFile()
+        public IActionResult UploadFile()
         {
             ReturnModel result = new ReturnModel();
             try
             {
                 RifaModel rifa = new RifaModel();
                 rifa = JsonConvert.DeserializeObject<RifaModel>(Request.Form["rifa"]);
-                var webRoot = _env.WebRootPath;
-                var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
                 if (rifa.Id != 0)
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
                         {
-                            rifa.Imagem = ($"conteudo/{arquivo.FileName}");
-                            var imagem = $"{ filePath}{ arquivo.FileName}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                await arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                rifa.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }
                     _context.Rifas.Update(rifa);
-                } else
+                }
+                else
                 {
                     rifa.QuantidadaRestante = rifa.Quantidade;
                     rifa.QuantidadePendente = rifa.Quantidade;
@@ -105,11 +106,11 @@ namespace TesteUpload.Controllers
                     {
                         if (arquivo.Length > 0)
                         {
-                            rifa.Imagem = ($"conteudo/{arquivo.FileName}");
-                            var imagem = $"{ filePath}{ arquivo.FileName}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                await arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                rifa.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }

@@ -46,8 +46,6 @@ namespace TesteUpload.Migrations
 
                     b.Property<string>("Cambio");
 
-                    b.Property<string>("CaminhoImagem");
-
                     b.Property<bool?>("CarroAntigo");
 
                     b.Property<bool?>("CarroSeminovo");
@@ -59,6 +57,8 @@ namespace TesteUpload.Migrations
                     b.Property<DateTime>("DataCadastro");
 
                     b.Property<string>("Descricao");
+
+                    b.Property<string>("ImgBase64");
 
                     b.Property<string>("Marca")
                         .IsRequired();
@@ -110,8 +110,7 @@ namespace TesteUpload.Migrations
 
                     b.Property<string>("Descricao");
 
-                    b.Property<string>("Imagem")
-                        .IsRequired();
+                    b.Property<string>("ImgBase64");
 
                     b.Property<string>("Local");
 
@@ -130,15 +129,15 @@ namespace TesteUpload.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Caminho");
-
                     b.Property<int?>("CarroId");
+
+                    b.Property<string>("ImgBase64");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CarroId");
 
-                    b.ToTable("imagens");
+                    b.ToTable("Imagens");
                 });
 
             modelBuilder.Entity("TesteUpload.Model.InstituicaoModel", b =>
@@ -149,7 +148,7 @@ namespace TesteUpload.Migrations
 
                     b.Property<string>("Descricao");
 
-                    b.Property<string>("Imagem");
+                    b.Property<string>("ImgBase64");
 
                     b.Property<string>("Nome");
 
@@ -166,7 +165,7 @@ namespace TesteUpload.Migrations
 
                     b.Property<string>("Descricao");
 
-                    b.Property<string>("Imagem")
+                    b.Property<string>("ImgBase64")
                         .IsRequired();
 
                     b.Property<string>("Nome")
@@ -189,7 +188,7 @@ namespace TesteUpload.Migrations
                     b.Property<string>("Descricao")
                         .IsRequired();
 
-                    b.Property<string>("Imagem")
+                    b.Property<string>("ImgBase64")
                         .IsRequired();
 
                     b.Property<string>("Preco")

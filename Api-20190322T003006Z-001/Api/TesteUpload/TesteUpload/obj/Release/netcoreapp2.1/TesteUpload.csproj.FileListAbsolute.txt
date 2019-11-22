@@ -30,7 +30,6 @@ C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Release\netcoreapp2.1\TesteUpload.Views.dll
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Release\netcoreapp2.1\TesteUpload.Views.pdb
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.csprojAssemblyReference.cache
-C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.csproj.CoreCompileInputs.cache
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.RazorAssemblyInfo.cache
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.RazorAssemblyInfo.cs
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.AssemblyInfoInputs.cache
@@ -38,11 +37,14 @@ C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.TagHelpers.input.cache
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.TagHelpers.output.cache
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.RazorCoreGenerate.cache
-C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\Razor\Pages\Error.g.cshtml.cs
-C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\Razor\Pages\_ViewImports.g.cshtml.cs
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.RazorTargetAssemblyInfo.cache
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.RazorTargetAssemblyInfo.cs
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.Views.pdb
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.dll
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.pdb
 C:\Projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\TesteUpload.csproj.CopyComplete
+C:\projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Release\netcoreapp2.1\appsettings.Development.json
+C:\projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Release\netcoreapp2.1\appsettings.json
+C:\projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\bin\Release\netcoreapp2.1\Properties\launchSettings.json
+C:\projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\Razor\Pages\Error.cshtml.g.cs
+C:\projetos\Api-AdmUp7\Api-20190322T003006Z-001\Api\TesteUpload\TesteUpload\obj\Release\netcoreapp2.1\Razor\Pages\_ViewImports.cshtml.g.cs

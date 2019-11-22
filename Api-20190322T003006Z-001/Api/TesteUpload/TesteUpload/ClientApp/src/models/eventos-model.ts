@@ -5,6 +5,7 @@ export class EventoModel {
     mes: number;
     titulo: string;
     local: string;
+    imgBase64: string;
     constructor(values: Object = {}) {
         Object.assign(this, values);
     }

@@ -12,8 +12,7 @@ namespace TesteUpload.Model
 
 
         public int Id { get; set; }
-        public string Caminho { get; set; }
-
+        public string ImgBase64 { get; set; }
         public virtual CarroModel Carro { get; set; }
     }
 }

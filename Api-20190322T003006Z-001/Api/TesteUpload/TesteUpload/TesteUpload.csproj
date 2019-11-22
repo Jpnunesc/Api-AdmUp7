@@ -67,4 +67,6 @@
     </ItemGroup>
   </Target>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://raw.githubusercontent.com/dolittle/Runtime/master/Schemas/Tenancy/tenants.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

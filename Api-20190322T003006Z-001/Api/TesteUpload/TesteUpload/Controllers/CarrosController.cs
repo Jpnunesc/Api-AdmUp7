@@ -20,6 +20,8 @@ namespace TesteUpload.Controllers
         private readonly UP7WebApiContext _context;
         private readonly IHostingEnvironment _env;
 
+        public IHostingEnvironment Env => _env;
+
         public CarrosController(UP7WebApiContext context, IHostingEnvironment env)
         {
             _context = context;
@@ -46,11 +48,11 @@ namespace TesteUpload.Controllers
                 p.Potencia,
                 p.CarroAntigo,
                 p.CarroSeminovo,
-                p.CaminhoImagem,
                 p.Combustivel,
                 p.Velocidade,
                 p.Adicional,
-                p.Portas
+                p.Portas,
+                p.ImgBase64
 
             }).ToListAsync();
 
@@ -83,11 +85,11 @@ namespace TesteUpload.Controllers
                 p.Potencia,
                 p.CarroAntigo,
                 p.CarroSeminovo,
-                p.CaminhoImagem,
                 p.Combustivel,
                 p.Velocidade,
                 p.Portas,
-                p.Adicional
+                p.Adicional,
+                p.ImgBase64
 
             }).ToListAsync();
 
@@ -119,11 +121,11 @@ namespace TesteUpload.Controllers
                 p.Potencia,
                 p.CarroAntigo,
                 p.CarroSeminovo,
-                p.CaminhoImagem,
                 p.Combustivel,
                 p.Velocidade,
                 p.Portas,
-                p.Adicional
+                p.Adicional,
+                p.ImgBase64
 
             }).ToListAsync();
 
@@ -156,11 +158,11 @@ namespace TesteUpload.Controllers
                 p.Portas,
                 p.CarroAntigo,
                 p.CarroSeminovo,
-                p.CaminhoImagem,
                 p.Imagem,
                 p.Combustivel,
                 p.Velocidade,
-                p.Adicional
+                p.Adicional,
+                p.ImgBase64
 
             }).FirstOrDefaultAsync();
 
@@ -191,11 +193,11 @@ namespace TesteUpload.Controllers
                 p.Potencia,
                 p.CarroAntigo,
                 p.CarroSeminovo,
-                p.CaminhoImagem,
                 p.Portas,
                 p.Combustivel,
                 p.Velocidade,
-                p.Adicional
+                p.Adicional,
+                p.ImgBase64
 
             }).ToListAsync();
 
@@ -229,12 +231,12 @@ namespace TesteUpload.Controllers
                 p.CarroAntigo,
                 p.Portas,
                 p.CarroSeminovo,
-                p.CaminhoImagem,
                 p.Imagem,
                 p.Combustivel,
                 p.Velocidade,
                 p.Cambio,
-                p.Adicional
+                p.Adicional,
+                p.ImgBase64
             }).Where(p => p.Id == id).FirstOrDefaultAsync();
 
             if (result.Object != null)
@@ -258,61 +260,59 @@ namespace TesteUpload.Controllers
         [Produces("application/json")]
         [HttpPost, DisableRequestSizeLimit]
         [EnableCors("MyPolicy")]
-        public async Task<IActionResult> UploadFile()
+        public IActionResult UploadFile()
         {
             try
             {
                 CarroModel carro = new CarroModel();
                 var carroImagem = new List<ImagemModel>();
                 carro = JsonConvert.DeserializeObject<CarroModel>(Request.Form["carro"]);
-                var webRoot = _env.WebRootPath;
-                var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
                 if (carro.Id == 0)
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
                         {
-                            carro.Imagem.Add(new ImagemModel { Caminho = $"conteudo/{ arquivo.FileName}" });
-                            carro.CaminhoImagem = ($"conteudo/{arquivo.FileName}");
-                            var imagem = $"{ filePath}{ arquivo.FileName}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                await arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                carro.ImgBase64 = Convert.ToBase64String(fileBytes);
+
+                                carro.Imagem = new List<ImagemModel>
+                            {
+                                new ImagemModel { ImgBase64 = Convert.ToBase64String(fileBytes) }
+                            };
                             }
                         }
+                        carro.DataCadastro = DateTime.Now;
+                        _context.Carro.Add(carro);
+                        _context.SaveChanges();
                     }
-                    carro.DataCadastro = DateTime.Now; 
-                    _context.Carro.Add(carro);
-                    _context.SaveChanges();
-
                 }
+
                 else
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
                         {
-                            carro.Imagem = new List<ImagemModel>
+                            using (var ms = new MemoryStream())
                             {
-                                new ImagemModel { Caminho = $"conteudo/{ arquivo.FileName}" }
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                carro.ImgBase64 = Convert.ToBase64String(fileBytes);
+
+                                carro.Imagem = new List<ImagemModel>
+                            {
+                                new ImagemModel { ImgBase64 = Convert.ToBase64String(fileBytes) }
                             };
-                            carro.CaminhoImagem = ($"conteudo/{arquivo.FileName}");
-                            var imagem = $"{ filePath}{ arquivo.FileName}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
-                            {
-                                await arquivo.CopyToAsync(stream);
                             }
                         }
                     }
                     _context.Carro.Update(carro);
                     _context.SaveChanges();
                 }
-
-
-
-
-
             }
             catch (Exception ex)
             {

@@ -11,10 +11,8 @@ import { InstituicaoService } from '../../../services/intituicao-service';
   styleUrls: ['./lista-instituicao.component.css']
 })
 export class ListaInstituicaoComponent implements OnInit {
-  url = environment.urlImagem;
   public loading = false;
   formSearch: InstituicaoModel[] = new Array<InstituicaoModel>();
-  urlPrincipal = '';
   showModal = false;
   sucesso = false;
   constructor(private serviceInstituicao: InstituicaoService, private dialogService: DialogService) { }
@@ -52,12 +50,6 @@ export class ListaInstituicaoComponent implements OnInit {
     this.serviceInstituicao.search().subscribe(resp => {
       if (resp.object.length) {
         this.formSearch = resp.object;
-        this.formSearch.forEach(el => {
-          el.imagem = this.url + el.imagem;
-        });
-        // for (let i = 0; i < 10; i++) {
-        //   this.formSearchCarro.push(this.formSearchCarro[1]);
-        // }
       }
       setTimeout(() => this.loading = false, 2000);
     }, error => console.log(error),

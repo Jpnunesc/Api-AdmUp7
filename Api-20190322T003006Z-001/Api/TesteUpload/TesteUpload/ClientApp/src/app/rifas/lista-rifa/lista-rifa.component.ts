@@ -11,10 +11,8 @@ import { ConfirmComponent } from '../../../shared/componet';
   styleUrls: ['./lista-rifa.component.css']
 })
 export class ListaRifaComponent implements OnInit {
-  url = environment.urlImagem;
   public loading = false;
   formSearch: RifasModel[] = new Array<RifasModel>();
-  urlPrincipal = '';
   showModal = false;
   sucesso = false;
   constructor(private serviceRifas: RifasService, private dialogService: DialogService) { }
@@ -52,12 +50,6 @@ export class ListaRifaComponent implements OnInit {
     this.serviceRifas.search().subscribe(resp => {
       if (resp.object.length) {
         this.formSearch = resp.object;
-        this.formSearch.forEach(el => {
-          el.imagem = this.url + el.imagem;
-        });
-        // for (let i = 0; i < 10; i++) {
-        //   this.formSearchCarro.push(this.formSearchCarro[1]);
-        // }
       }
       setTimeout(() => this.loading = false, 2000);
     }, error => console.log(error),

@@ -20,6 +20,8 @@ namespace TesteUpload.Controllers
         private readonly UP7WebApiContext _context;
         private readonly IHostingEnvironment _env;
 
+        public IHostingEnvironment Env => _env;
+
         public EventosController(UP7WebApiContext context, IHostingEnvironment env)
         {
             _context = context;
@@ -123,43 +125,42 @@ namespace TesteUpload.Controllers
         [HttpPost, DisableRequestSizeLimit]
         [EnableCors("MyPolicy")]
         [Route("cadastro")]
-        public async Task<IActionResult> UploadFile()
+        public IActionResult UploadFile()
         {
             ReturnModel result = new ReturnModel();
-            
+
             try
             {
                 EventoModel evento = new EventoModel();
                 evento = JsonConvert.DeserializeObject<EventoModel>(Request.Form["evento"]);
-                var webRoot = _env.WebRootPath;
-                var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
-                if(evento.Id != 0)
+                if (evento.Id != 0)
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
                         {
-                            evento.Imagem = ($"conteudo/{arquivo.Name}");
-                            var imagem = $"{ filePath}{ arquivo.Name}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                await arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                evento.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }
                     _context.Eventos.Update(evento);
-                } else
+                }
+                else
                 {
                     foreach (var arquivo in Request.Form.Files)
                     {
                         if (arquivo.Length > 0)
                         {
-                            evento.Imagem = ($"conteudo/{arquivo.Name}");
-                            var imagem = $"{ filePath}{ arquivo.Name}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                await arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                evento.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }
@@ -176,7 +177,7 @@ namespace TesteUpload.Controllers
             {
                 result.Message = "Erro, verifique se os dados estão corretos!";
                 return Ok(result);
-               
+
             }
 
             return Ok(result);

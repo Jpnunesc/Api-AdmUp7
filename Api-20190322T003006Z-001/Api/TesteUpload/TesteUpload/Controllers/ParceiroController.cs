@@ -19,6 +19,8 @@ namespace TesteUpload.Controllers
         private readonly UP7WebApiContext _context;
         private readonly IHostingEnvironment _env;
 
+        public IHostingEnvironment Env => _env;
+
         public ParceiroController(UP7WebApiContext context, IHostingEnvironment env)
         {
             _context = context;
@@ -82,8 +84,6 @@ namespace TesteUpload.Controllers
             {
                 ParceiroModel parceiro = new ParceiroModel();
                 parceiro = JsonConvert.DeserializeObject<ParceiroModel>(Request.Form["parceiro"]);
-                var webRoot = _env.WebRootPath;
-                var filePath = System.IO.Path.Combine(webRoot, "conteudo\\");
 
                 if (parceiro.Id != 0)
                 {
@@ -91,11 +91,11 @@ namespace TesteUpload.Controllers
                     {
                         if (arquivo.Length > 0)
                         {
-                            parceiro.Imagem = ($"conteudo/{arquivo.Name}");
-                            var imagem = $"{ filePath}{ arquivo.Name}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                parceiro.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }
@@ -106,11 +106,11 @@ namespace TesteUpload.Controllers
                     {
                         if (arquivo.Length > 0)
                         {
-                            parceiro.Imagem = ($"conteudo/{arquivo.Name}");
-                            var imagem = $"{ filePath}{ arquivo.Name}";
-                            using (var stream = new FileStream(imagem, FileMode.Create))
+                            using (var ms = new MemoryStream())
                             {
-                                arquivo.CopyToAsync(stream);
+                                arquivo.CopyTo(ms);
+                                var fileBytes = ms.ToArray();
+                                parceiro.ImgBase64 = Convert.ToBase64String(fileBytes);
                             }
                         }
                     }

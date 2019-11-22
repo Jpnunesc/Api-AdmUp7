@@ -19,6 +19,7 @@ export class CarroModel {
     caminhoImgPrincipal: string;
     caminhoImagem: string;
     portas: string;
+    imgBase64: string;
 
     Imagem: Array<ImagemModel>;
     adicional: Array<AdicionalModel>;

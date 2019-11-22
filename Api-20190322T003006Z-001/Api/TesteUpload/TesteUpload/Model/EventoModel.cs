@@ -15,10 +15,10 @@ namespace TesteUpload.Model
         [Required]
         public int Mes { get; set; }
         [Required]
-        public string Imagem { get; set; }
         public DateTime DataCriacao { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public string Local { get; set; }
+        public string ImgBase64 { get; set; }
     }
 }

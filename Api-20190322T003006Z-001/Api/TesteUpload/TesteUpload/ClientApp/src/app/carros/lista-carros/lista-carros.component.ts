@@ -11,7 +11,6 @@ import { ConfirmComponent } from '../../../shared/componet';
   styleUrls: ['./lista-carros.component.css']
 })
 export class ListaCarrosComponent implements OnInit {
-  url = environment.urlImagem;
   public loading = false;
   formSearchCarro: CarroModel[] = new Array<CarroModel>();
   urlPrincipal = '';
@@ -54,12 +53,6 @@ export class ListaCarrosComponent implements OnInit {
     this.serviceCarro.search().subscribe(resp => {
       if (resp.object.length) {
         this.formSearchCarro = resp.object;
-        this.formSearchCarro.forEach(el => {
-          el.caminhoImgPrincipal = this.url + el.caminhoImagem;
-        });
-        // for (let i = 0; i < 10; i++) {
-        //   this.formSearchCarro.push(this.formSearchCarro[1]);
-        // }
       }
       setTimeout(() => this.loading = false, 2000);
     }, error => console.log(error),

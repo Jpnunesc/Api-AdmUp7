@@ -11,10 +11,8 @@ import { EventoModel } from '../../../models/eventos-model';
   styleUrls: ['./lista-eventos.component.css']
 })
 export class ListaEventosComponent implements OnInit {
-  url = environment.urlImagem;
   public loading = false;
   formSearch: EventoModel[] = new Array<EventoModel>();
-  urlPrincipal = '';
   showModal = false;
   sucesso = false;
   constructor(private serviceEventos: EventosService, private dialogService: DialogService) { }
@@ -52,12 +50,6 @@ export class ListaEventosComponent implements OnInit {
     this.serviceEventos.search().subscribe(resp => {
       if (resp.object.length) {
         this.formSearch = resp.object;
-        this.formSearch.forEach(el => {
-          el.imagem = this.url + el.imagem;
-        });
-        // for (let i = 0; i < 10; i++) {
-        //   this.formSearchCarro.push(this.formSearchCarro[1]);
-        // }
       }
       setTimeout(() => this.loading = false, 2000);
     }, error => console.log(error),

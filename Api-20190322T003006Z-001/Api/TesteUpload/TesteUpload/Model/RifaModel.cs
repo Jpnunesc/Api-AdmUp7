@@ -17,7 +17,7 @@ namespace TesteUpload.Model
         [Required]
         public string Titulo { get; set; }
         [Required]
-        public string Imagem { get; set; }
+        public string ImgBase64 { get; set; }
         [Required]
         public string Descricao { get; set; }
         [Required]
