@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Esse arquivo é usado pelo processo de publicação/pacote do seu projeto Web. É possível personalizar o comportamento deste processo
-ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.microsoft.com/fwlink/?LinkID=208121. 
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAXZUqLDLS3UmJzQWxbCQtngAAAAACAAAAAAAQZgAAAAEAACAAAAAY2Lcho3n0YOCyiMUIdiHyfnYAjxu9BcHcCCt4oJROEAAAAAAOgAAAAAIAACAAAACrWgA676y4he6M2hZzaFLHKqSrYXR1t7+RHl1YzAf0bYAAAADAaZ6igISE5xZyz2HGuOlMXpMqLSL39pfm8R+jL6sQXXlDjoWpjIXeNe1IwLiJkdPfKeWILcG7hRd1DZsq4QVstw/6u/TXszXnBeqru4uDMhOANgojFShl7dXE3QqaqYUkWQHuoEI6zfqyAWAEHCUwXvYCrdA7IHlLDUjUr0aOXEAAAAA5PiWGYWYvjWxP67zUf1MPQ85OR08xiuHCOiUFzfgpXHmdeBJFIaDcr+DKEyxhIfcUI5TzdZsixgjNnzzo7In6</EncryptedPassword>
-    <_PublishTargetUrl>ftp://waws-prod-dm1-145dr.ftp.azurewebsites.windows.net/site/wwwroot/http://up7adm.azurewebsites.net</_PublishTargetUrl>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbUujgODNsEiwlirfLUxyIAAAAAACAAAAAAAQZgAAAAEAACAAAAC5WnfQcb9k3k/o6kVn/INXdgjhU1VEQ9qpDrElF5CjmwAAAAAOgAAAAAIAACAAAADQ3JTfQwRggZJixHQs4b3j2tIauxGVXPsRpScQdidK/oAAAAAaU7nj2AkIUbuj+ZF3HHQYeUhdNf9xJQsK6PLPsNyfV+ia7sFSd0z5Lso2Y0mxbMbx5MBw8LQs67xLHtK1KvmkjIG6xhACmg3WslNJcOL0Azso9XhLrZhdnb1Lzx4ioeuAsL02deCvqFZ4HiyqqD6YspsvEVlRthPPQPCK7q2QyEAAAADyPlcUIUuEtmNWT+BzKr6wiH0of8Q+vqqIIPEpNcuqeR6H4O8vR6EE/O0HqSFS4tzPBD1K5S9/xn3/g6tYrcTr</EncryptedPassword>
   </PropertyGroup>
 </Project>

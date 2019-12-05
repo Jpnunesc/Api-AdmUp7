@@ -75,11 +75,11 @@ namespace TesteUpload
             });
 
             //teste
-            app.UseDirectoryBrowser(new DirectoryBrowserOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "conteudo")),
-                RequestPath = new PathString("/conteudo")
-            });
+            //app.UseDirectoryBrowser(new DirectoryBrowserOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot", "conteudo")),
+            //    RequestPath = new PathString("/conteudo")
+            //});
             ///
             app.UseSpa(spa =>
             {
